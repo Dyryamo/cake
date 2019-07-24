@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.cake.dao.CartMapper">
-  <resultMap id="BaseResultMap" type="com.cake.bean.Cart">
+<mapper namespace="com.cake.dao.FlavourMapper">
+  <resultMap id="BaseResultMap" type="com.cake.bean.Flavour">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="userID" jdbcType="INTEGER" property="userid" />
-    <result column="productID" jdbcType="INTEGER" property="productid" />
-    <result column="number" jdbcType="INTEGER" property="number" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -66,15 +64,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, userID, productID, number
+    id, name
   </sql>
-  <select id="selectByExample" parameterType="com.cake.bean.CartExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.cake.bean.FlavourExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from Cart
+    from Flavour
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -85,76 +83,56 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from Cart
+    from Flavour
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from Cart
+    delete from Flavour
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.cake.bean.CartExample">
-    delete from Cart
+  <delete id="deleteByExample" parameterType="com.cake.bean.FlavourExample">
+    delete from Flavour
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.cake.bean.Cart">
-    insert into Cart (id, userID, productID, 
-      number)
-    values (#{id,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{productid,jdbcType=INTEGER}, 
-      #{number,jdbcType=INTEGER})
+  <insert id="insert" parameterType="com.cake.bean.Flavour">
+    insert into Flavour (id, name)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.cake.bean.Cart">
-    insert into Cart
+  <insert id="insertSelective" parameterType="com.cake.bean.Flavour">
+    insert into Flavour
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
       </if>
-      <if test="userid != null">
-        userID,
-      </if>
-      <if test="productid != null">
-        productID,
-      </if>
-      <if test="number != null">
-        number,
+      <if test="name != null">
+        name,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="userid != null">
-        #{userid,jdbcType=INTEGER},
-      </if>
-      <if test="productid != null">
-        #{productid,jdbcType=INTEGER},
-      </if>
-      <if test="number != null">
-        #{number,jdbcType=INTEGER},
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.cake.bean.CartExample" resultType="java.lang.Long">
-    select count(*) from Cart
+  <select id="countByExample" parameterType="com.cake.bean.FlavourExample" resultType="java.lang.Long">
+    select count(*) from Flavour
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update Cart
+    update Flavour
     <set>
       <if test="record.id != null">
         id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.userid != null">
-        userID = #{record.userid,jdbcType=INTEGER},
-      </if>
-      <if test="record.productid != null">
-        productID = #{record.productid,jdbcType=INTEGER},
-      </if>
-      <if test="record.number != null">
-        number = #{record.number,jdbcType=INTEGER},
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -162,35 +140,25 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update Cart
+    update Flavour
     set id = #{record.id,jdbcType=INTEGER},
-      userID = #{record.userid,jdbcType=INTEGER},
-      productID = #{record.productid,jdbcType=INTEGER},
-      number = #{record.number,jdbcType=INTEGER}
+      name = #{record.name,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.cake.bean.Cart">
-    update Cart
+  <update id="updateByPrimaryKeySelective" parameterType="com.cake.bean.Flavour">
+    update Flavour
     <set>
-      <if test="userid != null">
-        userID = #{userid,jdbcType=INTEGER},
-      </if>
-      <if test="productid != null">
-        productID = #{productid,jdbcType=INTEGER},
-      </if>
-      <if test="number != null">
-        number = #{number,jdbcType=INTEGER},
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.cake.bean.Cart">
-    update Cart
-    set userID = #{userid,jdbcType=INTEGER},
-      productID = #{productid,jdbcType=INTEGER},
-      number = #{number,jdbcType=INTEGER}
+  <update id="updateByPrimaryKey" parameterType="com.cake.bean.Flavour">
+    update Flavour
+    set name = #{name,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

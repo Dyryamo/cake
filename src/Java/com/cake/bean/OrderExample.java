@@ -3,14 +3,14 @@ package com.cake.bean;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CartExample {
+public class OrderExample {
     protected String orderByClause;
 
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
 
-    public CartExample() {
+    public OrderExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 
@@ -224,123 +224,123 @@ public class CartExample {
             return (Criteria) this;
         }
 
-        public Criteria andProductidIsNull() {
-            addCriterion("productID is null");
+        public Criteria andProductsIsNull() {
+            addCriterion("products is null");
             return (Criteria) this;
         }
 
-        public Criteria andProductidIsNotNull() {
-            addCriterion("productID is not null");
+        public Criteria andProductsIsNotNull() {
+            addCriterion("products is not null");
             return (Criteria) this;
         }
 
-        public Criteria andProductidEqualTo(Integer value) {
-            addCriterion("productID =", value, "productid");
+        public Criteria andProductsEqualTo(Integer value) {
+            addCriterion("products =", value, "products");
             return (Criteria) this;
         }
 
-        public Criteria andProductidNotEqualTo(Integer value) {
-            addCriterion("productID <>", value, "productid");
+        public Criteria andProductsNotEqualTo(Integer value) {
+            addCriterion("products <>", value, "products");
             return (Criteria) this;
         }
 
-        public Criteria andProductidGreaterThan(Integer value) {
-            addCriterion("productID >", value, "productid");
+        public Criteria andProductsGreaterThan(Integer value) {
+            addCriterion("products >", value, "products");
             return (Criteria) this;
         }
 
-        public Criteria andProductidGreaterThanOrEqualTo(Integer value) {
-            addCriterion("productID >=", value, "productid");
+        public Criteria andProductsGreaterThanOrEqualTo(Integer value) {
+            addCriterion("products >=", value, "products");
             return (Criteria) this;
         }
 
-        public Criteria andProductidLessThan(Integer value) {
-            addCriterion("productID <", value, "productid");
+        public Criteria andProductsLessThan(Integer value) {
+            addCriterion("products <", value, "products");
             return (Criteria) this;
         }
 
-        public Criteria andProductidLessThanOrEqualTo(Integer value) {
-            addCriterion("productID <=", value, "productid");
+        public Criteria andProductsLessThanOrEqualTo(Integer value) {
+            addCriterion("products <=", value, "products");
             return (Criteria) this;
         }
 
-        public Criteria andProductidIn(List<Integer> values) {
-            addCriterion("productID in", values, "productid");
+        public Criteria andProductsIn(List<Integer> values) {
+            addCriterion("products in", values, "products");
             return (Criteria) this;
         }
 
-        public Criteria andProductidNotIn(List<Integer> values) {
-            addCriterion("productID not in", values, "productid");
+        public Criteria andProductsNotIn(List<Integer> values) {
+            addCriterion("products not in", values, "products");
             return (Criteria) this;
         }
 
-        public Criteria andProductidBetween(Integer value1, Integer value2) {
-            addCriterion("productID between", value1, value2, "productid");
+        public Criteria andProductsBetween(Integer value1, Integer value2) {
+            addCriterion("products between", value1, value2, "products");
             return (Criteria) this;
         }
 
-        public Criteria andProductidNotBetween(Integer value1, Integer value2) {
-            addCriterion("productID not between", value1, value2, "productid");
+        public Criteria andProductsNotBetween(Integer value1, Integer value2) {
+            addCriterion("products not between", value1, value2, "products");
             return (Criteria) this;
         }
 
-        public Criteria andNumberIsNull() {
-            addCriterion("number is null");
+        public Criteria andAddressIsNull() {
+            addCriterion("address is null");
             return (Criteria) this;
         }
 
-        public Criteria andNumberIsNotNull() {
-            addCriterion("number is not null");
+        public Criteria andAddressIsNotNull() {
+            addCriterion("address is not null");
             return (Criteria) this;
         }
 
-        public Criteria andNumberEqualTo(Integer value) {
-            addCriterion("number =", value, "number");
+        public Criteria andAddressEqualTo(Integer value) {
+            addCriterion("address =", value, "address");
             return (Criteria) this;
         }
 
-        public Criteria andNumberNotEqualTo(Integer value) {
-            addCriterion("number <>", value, "number");
+        public Criteria andAddressNotEqualTo(Integer value) {
+            addCriterion("address <>", value, "address");
             return (Criteria) this;
         }
 
-        public Criteria andNumberGreaterThan(Integer value) {
-            addCriterion("number >", value, "number");
+        public Criteria andAddressGreaterThan(Integer value) {
+            addCriterion("address >", value, "address");
             return (Criteria) this;
         }
 
-        public Criteria andNumberGreaterThanOrEqualTo(Integer value) {
-            addCriterion("number >=", value, "number");
+        public Criteria andAddressGreaterThanOrEqualTo(Integer value) {
+            addCriterion("address >=", value, "address");
             return (Criteria) this;
         }
 
-        public Criteria andNumberLessThan(Integer value) {
-            addCriterion("number <", value, "number");
+        public Criteria andAddressLessThan(Integer value) {
+            addCriterion("address <", value, "address");
             return (Criteria) this;
         }
 
-        public Criteria andNumberLessThanOrEqualTo(Integer value) {
-            addCriterion("number <=", value, "number");
+        public Criteria andAddressLessThanOrEqualTo(Integer value) {
+            addCriterion("address <=", value, "address");
             return (Criteria) this;
         }
 
-        public Criteria andNumberIn(List<Integer> values) {
-            addCriterion("number in", values, "number");
+        public Criteria andAddressIn(List<Integer> values) {
+            addCriterion("address in", values, "address");
             return (Criteria) this;
         }
 
-        public Criteria andNumberNotIn(List<Integer> values) {
-            addCriterion("number not in", values, "number");
+        public Criteria andAddressNotIn(List<Integer> values) {
+            addCriterion("address not in", values, "address");
             return (Criteria) this;
         }
 
-        public Criteria andNumberBetween(Integer value1, Integer value2) {
-            addCriterion("number between", value1, value2, "number");
+        public Criteria andAddressBetween(Integer value1, Integer value2) {
+            addCriterion("address between", value1, value2, "address");
             return (Criteria) this;
         }
 
-        public Criteria andNumberNotBetween(Integer value1, Integer value2) {
-            addCriterion("number not between", value1, value2, "number");
+        public Criteria andAddressNotBetween(Integer value1, Integer value2) {
+            addCriterion("address not between", value1, value2, "address");
             return (Criteria) this;
         }
     }

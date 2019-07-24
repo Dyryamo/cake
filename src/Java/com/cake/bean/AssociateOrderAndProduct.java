@@ -1,13 +1,11 @@
 package com.cake.bean;
 
-public class Cart {
+public class AssociateOrderAndProduct {
     private Integer id;
-
-    private Integer userid;
 
     private Integer productid;
 
-    private Integer number;
+    private Integer orderid;
 
     public Integer getId() {
         return id;
@@ -15,14 +13,6 @@ public class Cart {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public Integer getUserid() {
-        return userid;
-    }
-
-    public void setUserid(Integer userid) {
-        this.userid = userid;
     }
 
     public Integer getProductid() {
@@ -33,11 +23,11 @@ public class Cart {
         this.productid = productid;
     }
 
-    public Integer getNumber() {
-        return number;
+    public Integer getOrderid() {
+        return orderid;
     }
 
-    public void setNumber(Integer number) {
-        this.number = number;
+    public void setOrderid(Integer orderid) {
+        this.orderid = orderid;
     }
 }

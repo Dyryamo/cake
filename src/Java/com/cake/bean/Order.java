@@ -1,13 +1,13 @@
 package com.cake.bean;
 
-public class Cart {
+public class Order {
     private Integer id;
 
     private Integer userid;
 
-    private Integer productid;
+    private Integer products;
 
-    private Integer number;
+    private Integer address;
 
     public Integer getId() {
         return id;
@@ -25,19 +25,19 @@ public class Cart {
         this.userid = userid;
     }
 
-    public Integer getProductid() {
-        return productid;
+    public Integer getProducts() {
+        return products;
     }
 
-    public void setProductid(Integer productid) {
-        this.productid = productid;
+    public void setProducts(Integer products) {
+        this.products = products;
     }
 
-    public Integer getNumber() {
-        return number;
+    public Integer getAddress() {
+        return address;
     }
 
-    public void setNumber(Integer number) {
-        this.number = number;
+    public void setAddress(Integer address) {
+        this.address = address;
     }
 }
