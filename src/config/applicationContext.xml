@@ -20,29 +20,22 @@
         http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
         http://www.springframework.org/schema/context
-         http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+        http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 
     <!-- 关于spring xml 文件配置的blog https://www.cnblogs.com/coreyjk/p/6408638.html-->
     <!-- 钟关于spring 的整理 https://dyryamo.github.io/2018/10/25/spring/#more-->
-
+    <context:annotation-config />
 
     <!-- spring  配置文件 , 主要配置和spring  业务逻辑相关-->
-    <context:component-scan base-package="com.cake.*" use-default-filters="false">
+    <context:component-scan base-package="com.cake.*" use-default-filters="true">
         <!--<context:exclude-filter type="annotation"-->
-                                <!--expression="org.springframework.stereotype.Controller">-->
-
-        <!--</context:exclude-filter>-->
-
-        <!--<context:include-filter type="annotation" expression="org.springframework.stereotype.Service">-->
-
-        <!--</context:include-filter>-->
+                                <!--expression="org.springframework.stereotype.Controller"></context:exclude-filter>-->
     </context:component-scan>
     <!-- 引入mysql 数据库的参数-->
     <context:property-placeholder location="classpath:db.properties"></context:property-placeholder>
 
 
     <bean  class="com.cake.service.Impl.CartServiceImpl" id="cartServiceImpl"></bean>
-    <bean  class="com.cake.service.Impl.AdminstratorServiceImpl" id="adminstratorService"></bean>
 
 
     <bean id="pooledDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
@@ -70,7 +63,6 @@
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="basePackage" value="com.cake.dao"></property>
     </bean>
-
     <bean class="org.mybatis.spring.SqlSessionTemplate" id="sqlSession">
         <constructor-arg name="sqlSessionFactory" ref="SqlSessionFactory"></constructor-arg>
         <constructor-arg name="executorType" value="BATCH"></constructor-arg>
