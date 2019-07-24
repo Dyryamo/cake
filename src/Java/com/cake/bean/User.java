@@ -50,4 +50,15 @@ public class User {
     public void setLastname(String lastname) {
         this.lastname = lastname == null ? null : lastname.trim();
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", firstname='" + firstname + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", lastname='" + lastname + '\'' +
+                '}';
+    }
 }
