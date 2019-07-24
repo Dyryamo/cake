@@ -43,14 +43,14 @@
 
         <!-- 指定每个表的生成策略 -->
         <table tableName="Cart" domainObjectName="Cart"></table>
-        <table tableName="user" domainObjectName="user"></table>
-        <table tableName="order" domainObjectName="order"></table>
-        <table tableName="associateOrderAndProduct" domainObjectName="associateOrderAndProduct"></table>
-        <table tableName="relationtype" domainObjectName="relationtype"></table>
-        <table tableName="flavour" domainObjectName="flavour"></table>
-        <table tableName="theme" domainObjectName="theme"></table>
-        <table tableName="address" domainObjectName="address"></table>
-        <table tableName="product" domainObjectName="product"></table>
+        <table tableName="User" domainObjectName="User"></table>
+        <table tableName="Order" domainObjectName="Order"></table>
+        <table tableName="AssociateOrderAndProduct" domainObjectName="AssociateOrderAndProduct"></table>
+        <table tableName="Relationtype" domainObjectName="Relationtype"></table>
+        <table tableName="Flavour" domainObjectName="Flavour"></table>
+        <table tableName="Theme" domainObjectName="Theme"></table>
+        <table tableName="Address" domainObjectName="Address"></table>
+        <table tableName="Product" domainObjectName="Product"></table>
 
 
 
