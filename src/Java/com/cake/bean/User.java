@@ -11,6 +11,17 @@ public class User {
 
     private String lastname;
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", firstname='" + firstname + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", lastname='" + lastname + '\'' +
+                '}';
+    }
+
     public Integer getId() {
         return id;
     }

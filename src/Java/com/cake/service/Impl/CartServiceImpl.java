@@ -20,4 +20,23 @@ public class CartServiceImpl implements CartService {
         List<Cart> cartList =  cartMapper.selectByExample(null);
         return cartList;
     }
+
+    @Override
+    public boolean alterCartListByCartList(Cart cartList) {
+        cartMapper.updateByPrimaryKeySelective(cartList);
+        return true;
+    }
+
+    @Override
+    public void addCartList(Cart cartList) {
+        cartList.setId(null);
+        cartMapper.insertSelective(cartList);
+    }
+
+    @Override
+    public void deleteCartList(Cart cartList){
+        cartMapper.deleteByPrimaryKey(cartList.getId());
+    }
+
+
 }
