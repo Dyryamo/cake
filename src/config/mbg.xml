@@ -3,9 +3,15 @@
         PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
         "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 
+
 <generatorConfiguration>
     <properties resource="db.properties"></properties>
+
     <context id="DB2Tables" targetRuntime="MyBatis3">
+
+        <commentGenerator>
+            <property name="suppressAllComments" value="true" />
+        </commentGenerator>
 
         <!-- 配置数据库连接信息 -->
         <jdbcConnection driverClass="${jdbc.driverClass}"
