@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <properties resource="db.properties"></properties>
+    <context id="DB2Tables" targetRuntime="MyBatis3">
+
+        <!-- 配置数据库连接信息 -->
+        <jdbcConnection driverClass="${jdbc.driverClass}"
+                        connectionURL="${jdbc.jdbcUrl}"
+                        userId="${jdbc.user}"
+                        password="${jdbc.password}">
+
+            <property name="useInformationSchema" value="true"/>
+        </jdbcConnection>
+
+        <javaTypeResolver >
+            <property name="forceBigDecimals" value="false" />
+        </javaTypeResolver>
+
+        <!-- javaBean 生成位置-->
+        <javaModelGenerator targetPackage="com.cake.bean" targetProject="./src/Java">
+            <property name="enableSubPackages" value="true" />
+            <property name="trimStrings" value="true" />
+        </javaModelGenerator>
+        <!-- sql 映射文件生成位置-->
+        <sqlMapGenerator targetPackage="mapper"  targetProject="./src/config">
+            <property name="enableSubPackages" value="true" />
+        </sqlMapGenerator>
+
+        <!-- 指定dao 接口生成的位置 -->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.cake.dao"  targetProject="./src/Java">
+            <property name="enableSubPackages" value="true" />
+        </javaClientGenerator>
+
+        <!-- 指定每个表的生成策略 -->
+        <table tableName="Cart" domainObjectName="Cart"></table>
+        <table tableName="user" domainObjectName="user"></table>
+        <table tableName="order" domainObjectName="order"></table>
+        <table tableName="associateOrderAndProduct" domainObjectName="associateOrderAndProduct"></table>
+        <table tableName="relationtype" domainObjectName="relationtype"></table>
+        <table tableName="flavour" domainObjectName="flavour"></table>
+        <table tableName="theme" domainObjectName="theme"></table>
+        <table tableName="address" domainObjectName="address"></table>
+        <table tableName="product" domainObjectName="product"></table>
+
+
+
+    </context>
+</generatorConfiguration>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+    <!-- mybatis 官方文档http://www.mybatis.org/mybatis-3/zh/configuration.html-->
+    <!-- mybatis-generator 官方文档http://www.mybatis.org/generator/afterRunning.html -->
+<configuration>
+    <settings>
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings>
+    <typeAliases>
+        <package name="com.cake.bean"></package>
+    </typeAliases>
+
+    <!--<plugins>-->
+        <!--<plugin interceptor="com.github.pagehelper.PageInterceptor"></plugin>-->
+    <!--</plugins>-->
+    <plugins>
+        <plugin interceptor="com.github.pagehelper.PageInterceptor">
+            <!-- 设置数据库类型 Oracle,Mysql,MariaDB,SQLite,Hsqldb,PostgreSQL六种数据库-->
+            <property name="helperDialect" value="mysql"/>
+        </plugin>
+    </plugins>
+
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${jdbc.driverClass}"/>
+                <property name="url" value="${jdbc.jdbcUrl}"/>
+                <property name="username" value="${jdbc.user}"/>
+                <property name="password" value="${jdbc.password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+
+
+
+
+</configuration>

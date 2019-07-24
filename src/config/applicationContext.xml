@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+		http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+        http://www.springframework.org/schema/context
+         http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+    <!-- 关于spring xml 文件配置的blog https://www.cnblogs.com/coreyjk/p/6408638.html-->
+    <!-- 钟关于spring 的整理 https://dyryamo.github.io/2018/10/25/spring/#more-->
+    <!-- spring  配置文件 , 主要配置和spring  业务逻辑相关-->
+    <context:component-scan base-package="com.cake" use-default-filters="false">
+        <context:exclude-filter type="annotation"
+                                expression="org.springframework.stereotype.Controller"></context:exclude-filter>
+    </context:component-scan>
+    <!-- 引入mysql 数据库的参数-->
+    <context:property-placeholder location="classpath:db.properties"></context:property-placeholder>
+
+    <bean id="pooledDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="url" value="${jdbc.jdbcUrl}"></property>
+        <property name="driverClassName" value="${jdbc.driverClass}"></property>
+        <property name="username" value="${jdbc.user}"></property>
+        <property name="password" value="${jdbc.password}"></property>
+    </bean>
+
+    <!-- 事务控制-->
+        <bean class="org.springframework.jdbc.datasource.DataSourceTransactionManager" id="transactionManager">
+            <property name="dataSource" ref="pooledDataSource"></property>
+        </bean>
+
+
+    <!-- 配置和mybatis 整合-->
+    <bean class="org.mybatis.spring.SqlSessionFactoryBean" id="SqlSessionFactory">
+
+        <property name="configLocation" value="classpath:mybatis-config.xml"></property>
+        <property name="dataSource" ref="pooledDataSource"></property>
+        <property name="mapperLocations" value="classpath:mapper/*.xml"></property>
+    </bean>
+
+    <!-- 配置扫描器 , 讲myabtis 接口容器添加在ioc 容器-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.cake.dao"></property>
+    </bean>
+
+    <bean class="org.mybatis.spring.SqlSessionTemplate" id="sqlSession">
+        <constructor-arg name="sqlSessionFactory" ref="SqlSessionFactory"></constructor-arg>
+        <constructor-arg name="executorType" value="BATCH"></constructor-arg>
+    </bean>
+
+    <!-- 开启基于注解的事务, 使用xml 配置形式的事务 -->
+    <aop:config>
+        <!-- 切入点表达式 -->
+        <aop:pointcut id="txPoint" expression="execution(* com.cake.service..* (..))"></aop:pointcut>
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="txPoint"></aop:advisor>
+    </aop:config>
+    <!-- 事务增强配置 -->
+    <tx:advice id="txAdvice">
+        <tx:attributes>
+            <!-- 所有方法都是事务方法-->
+            <tx:method name="*"/>
+            <!-- 以get开始的所有方法 , get 都是查询,所以read-only-->
+            <tx:method name="get*" read-only="true"/>
+        </tx:attributes>
+    </tx:advice>
+
+
+</beans>
