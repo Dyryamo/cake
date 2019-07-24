@@ -24,6 +24,8 @@
 
     <!-- 关于spring xml 文件配置的blog https://www.cnblogs.com/coreyjk/p/6408638.html-->
     <!-- 钟关于spring 的整理 https://dyryamo.github.io/2018/10/25/spring/#more-->
+
+
     <!-- spring  配置文件 , 主要配置和spring  业务逻辑相关-->
     <context:component-scan base-package="com.cake" use-default-filters="false">
         <context:exclude-filter type="annotation"
@@ -31,6 +33,9 @@
     </context:component-scan>
     <!-- 引入mysql 数据库的参数-->
     <context:property-placeholder location="classpath:db.properties"></context:property-placeholder>
+
+
+    <!--<bean  class="com.cake.service.Impl.CartServiceImpl" id="CartServiceImpl"></bean>-->
 
     <bean id="pooledDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="url" value="${jdbc.jdbcUrl}"></property>

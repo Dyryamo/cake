@@ -1,5 +1,11 @@
 package com.cake.service;
 
+import com.cake.bean.Cart;
+
+import java.util.List;
+
 public interface CartService {
-    public void getAllCartList();
+
+    public List<Cart> getAllCartList();
+
 }
