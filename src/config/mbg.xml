@@ -49,7 +49,7 @@
         <table tableName="Relationtype" domainObjectName="Relationtype"></table>
         <table tableName="Flavour" domainObjectName="Flavour"></table>
         <table tableName="Theme" domainObjectName="Theme"></table>
-        <table tableName="Address" domainObjectName="Address"></table>
+        <table tableName="Addr" domainObjectName="Addr"></table>
         <table tableName="Product" domainObjectName="Product"></table>
 
 

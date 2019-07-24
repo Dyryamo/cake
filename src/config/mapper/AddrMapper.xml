@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.cake.dao.UserMapper">
-  <resultMap id="BaseResultMap" type="com.cake.bean.User">
+<mapper namespace="com.cake.dao.AddrMapper">
+  <resultMap id="BaseResultMap" type="com.cake.bean.Addr">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="firstName" jdbcType="VARCHAR" property="firstname" />
-    <result column="password" jdbcType="VARCHAR" property="password" />
-    <result column="email" jdbcType="VARCHAR" property="email" />
-    <result column="lastName" jdbcType="VARCHAR" property="lastname" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="phoneNumber" jdbcType="INTEGER" property="phonenumber" />
+    <result column="userID" jdbcType="INTEGER" property="userid" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -67,15 +66,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, firstName, password, email, lastName
+    id, address, phoneNumber, userID
   </sql>
-  <select id="selectByExample" parameterType="com.cake.bean.UserExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.cake.bean.AddrExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from User
+    from Addr
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -86,85 +85,76 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from User
+    from Addr
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from User
+    delete from Addr
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.cake.bean.UserExample">
-    delete from User
+  <delete id="deleteByExample" parameterType="com.cake.bean.AddrExample">
+    delete from Addr
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.cake.bean.User">
-    insert into User (id, firstName, password, 
-      email, lastName)
-    values (#{id,jdbcType=INTEGER}, #{firstname,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{email,jdbcType=VARCHAR}, #{lastname,jdbcType=VARCHAR})
+  <insert id="insert" parameterType="com.cake.bean.Addr">
+    insert into Addr (id, address, phoneNumber, 
+      userID)
+    values (#{id,jdbcType=INTEGER}, #{address,jdbcType=VARCHAR}, #{phonenumber,jdbcType=INTEGER}, 
+      #{userid,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.cake.bean.User">
-    insert into User
+  <insert id="insertSelective" parameterType="com.cake.bean.Addr">
+    insert into Addr
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
       </if>
-      <if test="firstname != null">
-        firstName,
+      <if test="address != null">
+        address,
       </if>
-      <if test="password != null">
-        password,
+      <if test="phonenumber != null">
+        phoneNumber,
       </if>
-      <if test="email != null">
-        email,
-      </if>
-      <if test="lastname != null">
-        lastName,
+      <if test="userid != null">
+        userID,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="firstname != null">
-        #{firstname,jdbcType=VARCHAR},
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
       </if>
-      <if test="password != null">
-        #{password,jdbcType=VARCHAR},
+      <if test="phonenumber != null">
+        #{phonenumber,jdbcType=INTEGER},
       </if>
-      <if test="email != null">
-        #{email,jdbcType=VARCHAR},
-      </if>
-      <if test="lastname != null">
-        #{lastname,jdbcType=VARCHAR},
+      <if test="userid != null">
+        #{userid,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.cake.bean.UserExample" resultType="java.lang.Long">
-    select count(*) from User
+  <select id="countByExample" parameterType="com.cake.bean.AddrExample" resultType="java.lang.Long">
+    select count(*) from Addr
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update User
+    update Addr
     <set>
       <if test="record.id != null">
         id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.firstname != null">
-        firstName = #{record.firstname,jdbcType=VARCHAR},
+      <if test="record.address != null">
+        address = #{record.address,jdbcType=VARCHAR},
       </if>
-      <if test="record.password != null">
-        password = #{record.password,jdbcType=VARCHAR},
+      <if test="record.phonenumber != null">
+        phoneNumber = #{record.phonenumber,jdbcType=INTEGER},
       </if>
-      <if test="record.email != null">
-        email = #{record.email,jdbcType=VARCHAR},
-      </if>
-      <if test="record.lastname != null">
-        lastName = #{record.lastname,jdbcType=VARCHAR},
+      <if test="record.userid != null">
+        userID = #{record.userid,jdbcType=INTEGER},
       </if>
     </set>
     <if test="_parameter != null">
@@ -172,40 +162,35 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update User
+    update Addr
     set id = #{record.id,jdbcType=INTEGER},
-      firstName = #{record.firstname,jdbcType=VARCHAR},
-      password = #{record.password,jdbcType=VARCHAR},
-      email = #{record.email,jdbcType=VARCHAR},
-      lastName = #{record.lastname,jdbcType=VARCHAR}
+      address = #{record.address,jdbcType=VARCHAR},
+      phoneNumber = #{record.phonenumber,jdbcType=INTEGER},
+      userID = #{record.userid,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.cake.bean.User">
-    update User
+  <update id="updateByPrimaryKeySelective" parameterType="com.cake.bean.Addr">
+    update Addr
     <set>
-      <if test="firstname != null">
-        firstName = #{firstname,jdbcType=VARCHAR},
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
       </if>
-      <if test="password != null">
-        password = #{password,jdbcType=VARCHAR},
+      <if test="phonenumber != null">
+        phoneNumber = #{phonenumber,jdbcType=INTEGER},
       </if>
-      <if test="email != null">
-        email = #{email,jdbcType=VARCHAR},
-      </if>
-      <if test="lastname != null">
-        lastName = #{lastname,jdbcType=VARCHAR},
+      <if test="userid != null">
+        userID = #{userid,jdbcType=INTEGER},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.cake.bean.User">
-    update User
-    set firstName = #{firstname,jdbcType=VARCHAR},
-      password = #{password,jdbcType=VARCHAR},
-      email = #{email,jdbcType=VARCHAR},
-      lastName = #{lastname,jdbcType=VARCHAR}
+  <update id="updateByPrimaryKey" parameterType="com.cake.bean.Addr">
+    update Addr
+    set address = #{address,jdbcType=VARCHAR},
+      phoneNumber = #{phonenumber,jdbcType=INTEGER},
+      userID = #{userid,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>
