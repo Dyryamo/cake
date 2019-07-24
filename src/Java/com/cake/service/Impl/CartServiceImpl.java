@@ -16,6 +16,7 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public List<Cart> getAllCartList() {
+        System.out.println(cartMapper);
         List<Cart> cartList =  cartMapper.selectByExample(null);
         return cartList;
     }
