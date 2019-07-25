@@ -12,4 +12,5 @@ public interface UserService {
     public User selectUserByMail(String mail);
     public void updateUserInfo(User user);
     public void forgetPassword(int id);
+    public int userMaxId();
 }

@@ -5,6 +5,7 @@
     <!-- mybatis 官方文档http://www.mybatis.org/mybatis-3/zh/configuration.html-->
     <!-- mybatis-generator 官方文档http://www.mybatis.org/generator/afterRunning.html -->
 <configuration>
+    <properties resource="db.properties"></properties>
     <settings>
         <setting name="mapUnderscoreToCamelCase" value="true"/>
     </settings>
@@ -33,9 +34,5 @@
             </dataSource>
         </environment>
     </environments>
-
-
-
-
 
 </configuration>
