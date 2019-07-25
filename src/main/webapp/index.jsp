@@ -29,6 +29,11 @@
 
 </head>
 <body>
-    hell world
+    <a href="account.html" class="btn btn-default">account</a>
+    <a href="checkout.html" class="btn btn-default">checkout</a>
+    <a href="contact.html" class="btn btn-default">contact</a>
+    <a href="index.html" class="btn btn-default">index</a>
+    <a href="products.html" class="btn btn-default">products</a>
+    <a href="single.html" class="btn btn-default">single</a>
 </body>
 </html>
