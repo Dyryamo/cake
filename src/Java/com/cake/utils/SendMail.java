@@ -57,7 +57,7 @@ public class SendMail {
 //        msg.setRecipients(RecipientType.CC, address);	//设置收件人，抄送（即再发送一份样的）
 //        msg.setRecipients(RecipientType.BCC, address);	//设置收件人，暗送
 
-        msg.setSubject("Rose在线情缘网提醒，您的条件已初步符合注册的申请要求"); // 邮件的标题
+        msg.setSubject("Cake蛋糕工坊提醒，您的条件已初步符合注册的申请要求"); // 邮件的标题
         msg.setContent("你的验证码是 <b>"+ text +"</b> \n" +
                 "请勿将验证码告诉其他人，保护自己账户安全。\n" , "text/html;charset=utf-8");	//邮件内容
 
