@@ -40,4 +40,8 @@ public class CartServiceImpl implements CartService {
     }
 
 
+    @Override
+    public Cart getCartById(int id){
+        return cartMapper.selectByPrimaryKey(id);
+    }
 }

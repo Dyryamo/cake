@@ -29,6 +29,17 @@
 
 </head>
 <body>
-    hell world
+    <script>
+        $.ajax(
+            {
+                url:"createOrderController",
+                type:"post",
+                dataType:"json",
+                success:function (data) {
+                    console.log(data)
+                }
+            }
+        )
+    </script>
 </body>
 </html>

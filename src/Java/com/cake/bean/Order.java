@@ -5,9 +5,12 @@ public class Order {
 
     private Integer userid;
 
+
     private Integer products;
 
     private Integer address;
+
+
 
     public Integer getId() {
         return id;

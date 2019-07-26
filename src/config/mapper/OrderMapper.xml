@@ -74,7 +74,7 @@
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from Order
+    from cake.Order
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -82,30 +82,33 @@
       order by ${orderByClause}
     </if>
   </select>
+  <select id="selectLastPrimaryKey" resultType="java.lang.Integer">
+    select max(id) As id from cake.Order ;
+  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from Order
+    from cake.Order
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from Order
+    delete from cake.Order
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.cake.bean.OrderExample">
-    delete from Order
+    delete from cake.Order
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
   <insert id="insert" parameterType="com.cake.bean.Order">
-    insert into Order (id, userID, products, 
+    insert into cake.Order (id, userID, products,
       address)
     values (#{id,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{products,jdbcType=INTEGER}, 
       #{address,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.cake.bean.Order">
-    insert into Order
+    insert into cake.Order
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
@@ -136,13 +139,13 @@
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.cake.bean.OrderExample" resultType="java.lang.Long">
-    select count(*) from Order
+    select count(*) from cake.Order
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update Order
+    update cake.Order
     <set>
       <if test="record.id != null">
         id = #{record.id,jdbcType=INTEGER},
@@ -162,7 +165,7 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update Order
+    update cake.Order
     set id = #{record.id,jdbcType=INTEGER},
       userID = #{record.userid,jdbcType=INTEGER},
       products = #{record.products,jdbcType=INTEGER},
@@ -172,7 +175,7 @@
     </if>
   </update>
   <update id="updateByPrimaryKeySelective" parameterType="com.cake.bean.Order">
-    update Order
+    update cake.Order
     <set>
       <if test="userid != null">
         userID = #{userid,jdbcType=INTEGER},
@@ -187,7 +190,7 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.cake.bean.Order">
-    update Order
+    update cake.Order
     set userID = #{userid,jdbcType=INTEGER},
       products = #{products,jdbcType=INTEGER},
       address = #{address,jdbcType=INTEGER}

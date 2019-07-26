@@ -28,10 +28,10 @@ public class TestMBG {
         myBatisGenerator.generate(null);
     }
 
-    @Test
-    public void test1(){
-        ApplicationContext ac = new ClassPathXmlApplicationContext("applicationContext.xml");
-        LoginService loginServiceh = (LoginServiceImpl) ac.getBean("loginServiceImpl");
-        loginServiceh.login(null);
-    }
+//    @Test
+//    public void test1(){
+//        ApplicationContext ac = new ClassPathXmlApplicationContext("applicationContext.xml");
+////        LoginService loginServiceh = (LoginServiceImpl) ac.getBean("loginServiceImpl");
+//        loginServiceh.login(null);
+//    }
 }
