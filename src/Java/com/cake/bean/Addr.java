@@ -40,4 +40,14 @@ public class Addr {
     public void setUserid(Integer userid) {
         this.userid = userid;
     }
+
+    @Override
+    public String toString() {
+        return "Addr{" +
+                "id=" + id +
+                ", address='" + address + '\'' +
+                ", phonenumber=" + phonenumber +
+                ", userid=" + userid +
+                '}';
+    }
 }

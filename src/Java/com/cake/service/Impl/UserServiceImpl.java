@@ -2,6 +2,7 @@ package com.cake.service.Impl;
 
 import com.cake.bean.User;
 import com.cake.bean.UserExample;
+import com.cake.dao.LcMapper;
 import com.cake.dao.UserMapper;
 import com.cake.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,9 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     @Autowired
     UserMapper userMapper;
+
+    @Autowired
+    LcMapper lcMapper;
 
     public List<User> allUserInfo(){
         List<User> users = userMapper.selectByExample(null);
@@ -62,5 +66,11 @@ public class UserServiceImpl implements UserService {
         User user = userMapper.selectByPrimaryKey(id);
         user.setPassword("123456");
         userMapper.updateByPrimaryKey(user);
+    }
+
+    @Override
+    public int userMaxId() {
+        int id = lcMapper.lastUserId();
+        return id;
     }
 }

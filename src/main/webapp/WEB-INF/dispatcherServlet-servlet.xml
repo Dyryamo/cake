@@ -26,7 +26,7 @@
     <!-- 配置视图解析器 -->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 
-        <property name="prefix" value="/WEB-INF/view/" /> <!-- 视图全部放在/WEB-INF/views 下-->
+        <!--<property name="prefix" value="/WEB-INF/view/" /> &lt;!&ndash; 视图全部放在/WEB-INF/views 下&ndash;&gt;-->
         <!--<property name="prefix" value="/views/" /> &lt;!&ndash; 视图全部放在/WEB-INF/views 下&ndash;&gt;-->
         <property name="suffix" value=".jsp"/> <!-- 视图全部为jsp -->
     </bean>

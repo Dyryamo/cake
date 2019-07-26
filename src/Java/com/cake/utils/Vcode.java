@@ -26,12 +26,10 @@ public class Vcode {
     }
 
     public BufferedImage getBufferedImage() {
-
         return bufferedImage;
     }
 
     public String getText() {
-
         return text;
     }
 }

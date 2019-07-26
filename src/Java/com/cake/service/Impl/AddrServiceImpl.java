@@ -5,9 +5,11 @@ import com.cake.bean.AddrExample;
 import com.cake.dao.AddrMapper;
 import com.cake.service.AddrService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service("addrServiceImpl")
 public class AddrServiceImpl implements AddrService {
 
     @Autowired
