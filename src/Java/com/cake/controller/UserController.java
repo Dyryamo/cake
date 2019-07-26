@@ -8,13 +8,20 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/user")
 public class UserController {
     @RequestMapping("register")
-    public String registerUser(Addr addr, User user){
+    public String registerUser(HttpSession session, Addr addr, User user, HttpServletRequest request){
+        String vcode = request.getParameter("vcode");
+        String registerCode = (String) session.getAttribute("registerVcode");
+        if (!registerCode.equals(vcode)){ //
+            return "";
+        }
         System.out.println(user.toString());
         System.out.println(addr.toString());
         ApplicationContext ac = new ClassPathXmlApplicationContext("applicationContext.xml");
@@ -27,4 +34,5 @@ public class UserController {
         return "redirect:/index.jsp"; // 重定向
         //"forward:index.jsp"; 转发
     }
+
 }
