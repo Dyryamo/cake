@@ -10,7 +10,15 @@ public class Order {
 
     private Integer address;
 
+    private Addr addr;
 
+    public Addr getAddr() {
+        return addr;
+    }
+
+    public void setAddr(Addr addr) {
+        this.addr = addr;
+    }
 
     public Integer getId() {
         return id;

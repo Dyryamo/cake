@@ -6,6 +6,7 @@ import com.cake.utils.Msg;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
@@ -19,4 +20,12 @@ public class CartController {
 //        cartService.addCartList();
         return Msg.success().add("cartList",cartService.getAllCartList());
     }
+    @RequestMapping("/alterOrderNumberByID")
+    @ResponseBody
+    public Msg alterOrderNumberByIdController(@RequestParam("id") int id,@RequestParam("number") int number){
+//        orderService.
+        cartService.alterNumberByID(id,number);
+        return null;
+    }
+
 }
