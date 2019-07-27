@@ -22,7 +22,6 @@ public class LcImageController {
         try {
             Vcode vcode = new Vcode();
             String code = vcode.getText();
-            System.out.println("loginVcode = " + code);
             ImageIO.write(vcode.getBufferedImage(), "PNG", response.getOutputStream());
             session.setAttribute("loginVcode", code);
         } catch (IOException e) {
@@ -35,7 +34,6 @@ public class LcImageController {
         try {
             Vcode vcode = new Vcode();
             String code = vcode.getText();
-            System.out.println("registerVcode = " + code);
             ImageIO.write(vcode.getBufferedImage(), "PNG", response.getOutputStream());
             session.setAttribute("registerVcode", code);
         } catch (IOException e) {

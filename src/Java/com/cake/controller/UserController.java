@@ -24,11 +24,9 @@ public class UserController {
         String registerCode = (String) session.getAttribute("registerVcode");
         if (!registerCode.equals(vcode)){ //
             session.setAttribute("msg","验证码错误");
-            return "redirect:/account.html";
+            return "redirect:/account.jsp";
         }
         session.removeAttribute("registerVcode");
-        System.out.println(user.toString());
-        System.out.println(addr.toString());
         ApplicationContext ac = new ClassPathXmlApplicationContext("applicationContext.xml");
         UserService userService = (UserService) ac.getBean("userServiceImpl");
         AddrService addrService = (AddrService) ac.getBean("addrServiceImpl");
@@ -66,7 +64,6 @@ public class UserController {
     @RequestMapping("loginOut")
     public String loginOut(HttpSession session){
         session.invalidate();
-        System.out.println("用户登出");
         return "redirect:/index.jsp";
     }
 }

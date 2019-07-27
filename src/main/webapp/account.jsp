@@ -1,20 +1,14 @@
-</body>
-</html>
-<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<%@ page import="com.cake.bean.User" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%
-    String pathUrl = "http://120.79.249.199/";
-    String path = request.getContextPath();
-    String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-%>
-
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<%@ page import="com.cake.bean.User" %><%--
+  Created by IntelliJ IDEA.
+  User: root
+  Date: 19-7-26
+  Time: 下午3:45
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <base href="<%=basePath%>">
-
-    <title>Home</title>
+    <title>注册</title>
     <!-- Custom Theme files -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -26,128 +20,70 @@
     <!-- js -->
     <script src="js/jquery.min.js"></script>
     <script type="text/javascript" src="js/bootstrap-3.1.1.min.js"></script>
+
+    <script>
+        $.fn.serializeObject = function(){
+            var o={};
+            var a=this.serializeArray();
+            $.each(a,function() {
+                if (o[this.name]) {
+                    if(!o[this.name].push){
+                        o[this.name] = [o[this.name]];
+                    }
+                    o[this.name].push(this.value || '');
+                } else{
+                    o[this.name]
+                    this.value || '';
+                }
+            });
+            return o;
+        };
+        var formObject = $("#personinform").serializeObject(),
+            formArray=$("#personinform").serializeArray();
+
+    </script>
     <!-- //js -->
     <!-- cart -->
     <script src="js/simpleCart.min.js"> </script>
+
+
+    <script>
+        function validate(){
+            var pwd1= document.getElementById("pwd").value;
+            var pwd2= document.getElementById("pwd1").value;
+            if(pwd1 == pwd2){
+                document.getElementById("tishi").innerHTML="<label style=\"color: green ; font-size: 2em; font-family: Marvel-Regular \">The two passwords match</label>";
+                document.getElementById("button").disabled = false;
+            }else{
+                document.getElementById("tishi").innerHTML="<label style=\"color: red ; font-size: 2em;font-family: Marvel-Regular\">The two passwords do not match</label>";
+                document.getElementById("button").disabled = true;
+            }
+        }
+        function check(){
+            var reg = new RegExp("^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$"); //正则表达式
+            var obj = document.getElementById("mail"); //要验证的对象
+            if(!reg.test(obj.value)){ //正则验证不通过，格式不对
+                $("#mailJd").text("邮箱格式验证不通过!");
+                $(obj).parent().addClass("has-error");
+                return false;
+            }else{
+                $("#mailJd").text("");
+                $(obj).parent().removeClass("has-error");
+                $(obj).parent().addClass("has-success");
+                return true;
+            }
+        }
+        function addInputClass(name){
+            var $inp = $("input[name=\"" + name + "\"]");
+            if ($inp.val() == ""){
+                $inp.parent().addClass("has-error");
+            } else {
+                $inp.parent().removeClass("has-error");
+                $inp.parent().addClass("has-success");
+            }
+        }
+    </script>
     <!-- cart -->
-    <script type="text/javascript" src="js/jquery.mousewheel.js"></script>
-    <script>
-        function TopThing(imgurl1,price1,imgurl2,price2) {
-
-            var $divzong=$("#classgallery");
-
-            var $div = $("<div class='col-md-8 gallery-grid glry-one'></div>");
-            var $a = $("<a href=\"products.html\"><img src=" + imgurl1 + " class=\"img-responsive\" alt=\"\"/>");
-            var $div1=$("<div class=\"gallery-info\">");
-            var $p=$("<p><span class=\"glyphicon glyphicon-eye-open\" aria-hidden=\"true\"></span> view</p>");
-            var $a1=$("<a class=\"shop\" href=\"single.html\">SHOP NOW</a>");
-            var $div2=$("<div class=\"clearfix\"> </div>");
-            var $div3=$("<div class=\"galy-info\">");
-            var $p=$("<p>Lorem Ipsum is simply</p>");
-            var $div4=$("<div class=\"galry\">");
-            var $div5=$("<div class=\"prices\">");
-            var $h=$("<h5 class=\"item_price\">$"+price1+"</h5>");
-            var $div6=$("<div class=\"clearfix\"></div>");
-
-            $h.appendTo($div5);
-            $div5.appendTo($div4);
-            $div6.appendTo($div4);
-            $p.appendTo($div3);
-            $div4.appendTo($div3);
-            $div2.appendTo($div1);
-            $a1.appendTo($div1);
-            $p.appendTo($div1);
-            $div1.appendTo($a);
-            $a.appendTo($div);
-            $div3.appendTo($div);
-            $div.appendTo($divzong);
-
-            var $div20 = $("<div class='col-md-4 gallery-grid glry-two'></div>");
-            var $a20 = $("<a href=\"products.html\"><img src=" + imgurl2 + " class=\"img-responsive\" alt=\"\"/>");
-            var $div1=$("<div class=\"gallery-info galrr-info-two\">");
-            var $p20=$("<p><span class=\"glyphicon glyphicon-eye-open\" aria-hidden=\"true\"></span> view</p>");
-            var $a21=$("<a class=\"shop\" href=\"single.html\">SHOP NOW</a>");
-            var $div22=$("<div class=\"clearfix\"> </div>");
-            var $div23=$("<div class=\"galy-info\">");
-            var $p20=$("<p>Lorem Ipsum is simply</p>");
-            var $div24=$("<div class=\"galry\">");
-            var $div25=$("<div class=\"prices\">");
-            var $h20=$("<h5 class=\"item_price\">$"+price2+"</h5>");
-            var $div26=$("<div class=\"clearfix\"></div>");
-
-            $h20.appendTo($div25);
-            $div25.appendTo($div24);
-            $div26.appendTo($div24);
-            $div24.appendTo($div23);
-            $p20.appendTo($div23);
-            $p20.appendTo($div1);
-            $a21.appendTo($div1);
-            $div22.appendTo($div1);
-            $div1.appendTo($a20);
-            $a20.appendTo($div20);
-            $div23.appendTo($div20);
-            $div20.appendTo($divzong);
-        }
-
-        function thing(imgurl, price) {
-            var $div = $("<div class='col-md-3 gallery-grid'></div>");
-            var $a = $("<a href=\"products.html\"><img src=" + imgurl + " class=\"img-responsive\" alt=\"\"/>");
-            var $div1 = $("<div class=\"gallery-info\">");
-            var $p1 = $("<p><span class=\"glyphicon glyphicon-eye-open\" aria-hidden=\"true\"></span> view</p>");
-            var $a1=$("<a class=\"shop\" href=\"single.html\">SHOP NOW</a>");
-            var $div2=$("<div class=\"clearfix\"> </div>");
-            var $div3=$("<div class=\"galy-info\">");
-            var $p=$("<p>Lorem Ipsum is simply</p>");
-            var $div4=$("<div class=\"galry\">");
-            var $div5=$("<div class=\"prices\">");
-            var $h=$("<h5 class=\"item_price\">$"+price+"</h5>");
-            var $div6=$("<div class=\"clearfix\"></div>");
-
-            var $divzong=$("#classgallery");
-
-            $h.appendTo($div5);
-            $div5.appendTo($div4);
-            $p.appendTo($div3);
-            $div4.appendTo($div3);
-            $div6.appendTo($div3);
-            $div2.appendTo($div1);
-            $p1.appendTo($div1);
-            $a1.appendTo($div1);
-            $div1.appendTo($a);
-            $a.appendTo($div);
-            $div3.appendTo($div);
-            $div.appendTo($divzong);
-        }
-    </script>
-    <script>
-        $(document).ready(function(){
-            TopThing("images/g1.jpg","50","images/g2.jpg","50");
-
-            $.ajax({
-                url : "<%= basePath%>/",
-                type : "post",
-                dataType : "json",
-                success : function(result){
-                    console.log(result);
-
-                },
-                error : function (r) {
-                    console.log(r);
-                    alert("连接失败")
-                }
-            });
-            thing("images/g3.png","100.00");
-            thing("images/g4.png","100.00");
-            thing("images/g5.png","100.00");
-            thing("images/g6.png","100.00");
-            thing("images/g7.png","100.00");
-            thing("images/g8.png","100.00");
-            thing("images/g9.png","100.00");
-            thing("images/g10.png","100.00");
-
-
-        });
-    </script>
 </head>
 <body>
 <!--header-->
@@ -320,6 +256,7 @@
                             </div>
                         </ul>
                     </li>
+
                 </ul>
                 <!--/.navbar-collapse-->
             </div>
@@ -339,11 +276,10 @@
             </div>
             <div class="header-right login">
                 <a href="#"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></a>
-                <div id="loginBox">
                 <%
-
                     if (session.getAttribute("user") == null){
-                        out.print("<form action=\"/user/login\" method=\"post\" id=\"loginForm\">\n" +
+                        out.print("<div id=\"loginBox\">\n" +
+                                "    <form action=\"/user/login\" method=\"post\" id=\"loginForm\">\n" +
                                 "        <fieldset id=\"body\">\n" +
                                 "            <fieldset>\n" +
                                 "                <label for=\"email\">Email Address</label>\n" +
@@ -370,7 +306,8 @@
                                 "            <label for=\"checkbox\"><input type=\"checkbox\" id=\"checkbox\"> <i>Remember me</i></label>\n" +
                                 "        </fieldset>\n" +
                                 "        <p>New User ? <a class=\"sign\" href=\"account.html\">Sign Up</a> <span><a href=\"\" data-toggle=\"modal\" data-target=\"#exampleModal\" data-whatever=\"@mdo\">Forgot your password?</a></span></p>\n" +
-                                "    </form>\n");
+                                "    </form>\n" +
+                                "</div>");
                     } else {
                         User user = (User) session.getAttribute("user");
                         out.print("<form action=\"/user/loginOut\" method=\"post\" id=\"loginForm\">\n" +
@@ -384,55 +321,129 @@
                                 "    </form>\n");
                     }
                 %>
-                </div>
+
             </div>
             <div class="header-right cart">
                 <a href="#"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></a>
-                <div class="cart-box">
-                    <h4><a href="checkout.html">
-                        <span class="simpleCart_total"> $0.00 </span> (<span id="simpleCart_quantity" class="simpleCart_quantity"> 0 </span>)
-                    </a></h4>
-                    <p><a href="javascript:;" class="simpleCart_empty">Empty cart</a></p>
-                    <div class="clearfix"> </div>
+                <script>
+                    $(function(){
+                        num(1,2);
+                        function num(num,pric){
+                            var $div=$('<div class="cart-box">');
+                            var $h4=$('<h4><a href="checkout.html"> <span class="simpleCart_total" id="price_tag"> pric</span> (<span id="simpleCart_quantity" class="simpleCart_quantity"> num </span>) </a></h4>');
+                            var $p=$('<p><a href="javascript:;" class="simpleCart_empty">Empty Cart</a></p>');
+                            var $div1=$('<div class="clearfix"> </div>');
+                            $h4.appendTo($div);$p.appendTo($div);$div1.appendTo($div);
+                            $div.appendTo($("#baba1"));
+                        }
+                    });
+
+                </script>
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="exampleModalLabel" style="color: #F07818">find your password</h4>
+                            </div>
+                            <div class="modal-body">
+                                <form id="findpassword">
+                                    <div class="form-group">
+                                        <label for="recipient-name" class="control-label" style="color: #F07818">email:</label>
+                                        <input type="text" class="form-control" id="recipient-name">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="message-text" class="control-label" style="color: #F07818">CAPTCHA:</label>
+                                        <input type="text" class="form-control" id="message-text" ></textarea>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" >Checkout</button>
+                                <button type="button" class="btn btn-primary">Send message</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
             </div>
             <div class="clearfix"> </div>
         </div>
         <div class="clearfix"> </div>
     </div>
 </div>
+
+
 <!--//header-->
-<!--banner-->
-<div class="banner">
-    <div class="container">
-        <h2 class="hdng">Yummy <span>Cakes</span> for u</h2>
-        <p>Our best cakes make your day special</p>
-        <a href="products.html">SHOP NOW</a>
-        <div class="banner-text">
-            <img src="images/2.png" alt=""/>
+<!--account-->
+<form action="/user/register" class="form-group" method="post" id="personinform">
+    <div class="account">
+        <div class="container">
+            <div class="register">
+
+                <div class="register-top-grid">
+                    <h3>Personal information</h3>
+                    <div class="input">
+                        <span>First Name<label>*</label></span>
+                        <input type="text" class="form-control" onkeyup="addInputClass('firstname')" name="firstname">
+                    </div>
+                    <div class="input">
+                        <span>Last Name<label>*</label></span>
+                        <input type="text" class="form-control" onkeyup="addInputClass('lastname')" name="lastname">
+                    </div>
+                    <div class="input">
+                        <span>Email Address<label>*</label><label id="mailJd" style="color: red;"></label></span>
+                        <input type="text" class="form-control" id="mail" onkeyup="check()" name="email">
+                    </div>
+                    <div class="input">
+                        <span>Phone Number<label>*</label></span>
+                        <input type="text" class="form-control" onkeyup="addInputClass('phonenumber')" name="phonenumber">
+                    </div>
+                    <div class="input">
+                        <span>Address<label>*</label></span>
+                        <input type="text" class="form-control" onkeyup="addInputClass('address')" name="address" >
+                    </div>
+                    <a class="news-letter" href="#">
+                        <label class="checkbox"><input type="checkbox" class="form-control" name="checkbox" checked=""><i> </i>Sign Up for Newsletter</label>
+                    </a>
+                    <div class="clearfix">  </div>
+                </div>
+                <div class="register-bottom-grid">
+                    <h3>Login information</h3>
+
+                    <div class="input">
+                        <span>Password<label>*</label></span>
+                        <input type="password" class="form-control" name="password" id="pwd"  maxlength="12"  placeholder="please set password 6~12" >
+                    </div>
+                    <div class="input">
+                        <span>Confirm Password<label>*</label></span>
+                        <input type="password" class="form-control" id="pwd1" name="pwd1" placeholder="please check your password" onkeyup="validate()"><span id="tishi"></span>
+                    </div>
+                    <div class="input">
+                        <span>CAPTCHA<label>*</label></span>
+                        <input type="text"  name="vcode" id="vcode" >
+                        <img id="registerCode" src="" width="80" height="30">
+                    </div>
+                    <script>
+                        $(document).ready(function () {
+                            $("#registerCode").prop("src", "/image/registerVcode?time=" + (new Date()).getTime());
+                            $("#registerCode").click(function () {
+                                $("#registerCode").prop("src", "/image/registerVcode?time=" + (new Date()).getTime());
+                            });
+                        });
+                    </script>
+                </div>
+                <div class="clearfix"> </div>
+                <div class="register-but">
+                    <input type="submit" value="submit" id="button">
+                    <div class="clearfix"> </div>
+
+                </div>
+            </div>
         </div>
     </div>
-</div>
-<!--//banner-->
-<div class="copyrights">Collect from <a href="http://www.cssmoban.com/" >企业网站模板</a></div>
-<!--gallery-->
-<div class="gallery">
-    <div class="container" id="classgallery">
-
-    </div>
-</div>
-<!--//gallery-->
-<!--subscribe-->
-<div class="subscribe">
-    <div class="container">
-        <h3>Newsletter</h3>
-        <form>
-            <input type="text" class="text" value="Email" onFocus="this.value = '';" onBlur="if (this.value == '') {this.value = 'Email';}">
-            <input type="submit" value="Subscribe">
-        </form>
-    </div>
-</div>
-<!--//subscribe-->
+</form>
+<!--//account-->
 <!--footer-->
 <div class="footer">
     <div class="container">
@@ -480,13 +491,13 @@
                 <li><a href="#"><img src="images/i2.png" alt=""/>Follow us on Twitter</a></li>
                 <li><a href="#"><img src="images/i3.png" alt=""/>Follow us on Google-plus</a></li>
                 <li><a href="#"><img src="images/i4.png" alt=""/>Follow us on Pinterest</a></li>
-            </ul>
+            </ul>>
         </div>
         <div class="clearfix"></div>
     </div>
 </div>
 </div>
-<!--//footer-->
+<!--footer-->
 <div class="footer-bottom">
     <div class="container">
         <p>Copyright &copy; 2015.Company name All rights reserved.More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a></p>

@@ -41,6 +41,7 @@
 <!-- cart -->
 <script src="js/simpleCart.min.js"> </script>
 
+
 <script>
 	function validate(){
 		var pwd1= document.getElementById("pwd").value;
@@ -91,7 +92,7 @@
 											<li><a class="list" href="products.html">Kids</a></li>
 											<li><a class="list" href="products.html">Parents</a></li>
 										</ul>
-									</div>																		
+									</div>
 									<div class="col-sm-3">
 										<h4>By Flavour</h4>
 										<ul class="multi-column-dropdown">
@@ -142,7 +143,7 @@
 											<li><a class="list" href="products.html">Kids</a></li>
 											<li><a class="list" href="products.html">Parents</a></li>
 										</ul>
-									</div>																		
+									</div>
 									<div class="col-sm-3">
 										<h4>By Flavour</h4>
 										<ul class="multi-column-dropdown">
@@ -178,7 +179,7 @@
 									</div>
 								</div>
 							</ul>
-						</li>				
+						</li>
 						<li class="dropdown grid">
 							<a href="#" class="dropdown-toggle list1" data-toggle="dropdown">Special Offers <b class="caret"></b></a>
 							<ul class="dropdown-menu multi-column columns-4">
@@ -193,7 +194,7 @@
 											<li><a class="list" href="products.html">Kids</a></li>
 											<li><a class="list" href="products.html">Parents</a></li>
 										</ul>
-									</div>																		
+									</div>
 									<div class="col-sm-3">
 										<h4>By Flavour</h4>
 										<ul class="multi-column-dropdown">
@@ -231,14 +232,14 @@
 							</ul>
 						</li>
 
-					</ul> 
+					</ul>
 					<!--/.navbar-collapse-->
 				</div>
 				<!--//navbar-header-->
 			</nav>
 			<div class="header-info">
 				<div class="header-right search-box">
-					<a href="#"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></a>				
+					<a href="#"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></a>
 					<div class="search">
 						<form class="navbar-form">
 							<input type="text" class="form-control">
@@ -246,11 +247,11 @@
 								Search
 							</button>
 						</form>
-					</div>	
+					</div>
 				</div>
 				<div class="header-right login">
 					<a href="#"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></a>
-					<div id="loginBox">                
+					<div id="loginBox">
 						<form id="loginForm">
 							<fieldset id="body">
 								<fieldset>
@@ -261,31 +262,99 @@
 									<label for="password">Password</label>
 									<input type="password" name="password" id="password">
 								</fieldset>
+								<fieldset>
+									<label for="password">CAPTCHA</label>
+									<input type="text" name="CAPTCHA" id="CAPTCHA"  style="width: 67%; margin-left: 0px" >
+									<span style="width: 50%;"><img id="loginCode" src="" width="80" height="30"></span>
+									<script>
+										$(document).ready(function () {
+											$("#loginCode").prop("src", "/image/loginVcode" + (new Date()).getTime());
+											$("#loginCode").click(function () {
+												$("#loginCode").prop("src", "/image/loginVcode" + (new Date()).getTime());
+                                            });
+                                        })
+									</script>
+								</fieldset>
 								<input type="submit" id="login" value="Sign in">
 								<label for="checkbox"><input type="checkbox" id="checkbox"> <i>Remember me</i></label>
 							</fieldset>
-							<p>New User ? <a class="sign" href="account.html">Sign Up</a> <span><a href="#">Forgot your password?</a></span></p>
+							<p>New User ? <a class="sign" href="account.html">Sign Up</a> <span><a href="" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Forgot your password?</a></span></p>
 						</form>
 					</div>
+
+					<!--<div id="user">-->
+						<!--<form>-->
+							<!--<fieldset id="body1">-->
+								<!--<fieldset >-->
+									<!--<label for="email" id="loginInput">Email Address</label>-->
+									<!--<script>-->
+										<!--addLogin("519233")-->
+										<!--function addLogin(email){-->
+
+											<!--$("#loginInput").val = email;-->
+										<!--}-->
+									<!--</script>-->
+								<!--</fieldset>-->
+								<!--<input type="submit" id="loginButton" value="work out">-->
+							<!--</fieldset>-->
+						<!--</form>-->
+					<!--</div>-->
+
 				</div>
 				<div class="header-right cart">
 					<a href="#"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></a>
-					<div class="cart-box">
-						<h4><a href="checkout.html">
-							<span class="simpleCart_total"> $0.00 </span> (<span id="simpleCart_quantity" class="simpleCart_quantity"> 0 </span>) 
-						</a></h4>
-						<p><a href="javascript:;" class="simpleCart_empty">Empty cart</a></p>
-						<div class="clearfix"> </div>
+					<script>
+						$(function(){
+							num(1,2);
+							function num(num,pric){
+								var $div=$('<div class="cart-box">');
+								var $h4=$('<h4><a href="checkout.html"> <span class="simpleCart_total" id="price_tag"> pric</span> (<span id="simpleCart_quantity" class="simpleCart_quantity"> num </span>) </a></h4>');
+								var $p=$('<p><a href="javascript:;" class="simpleCart_empty">Empty Cart</a></p>');
+								var $div1=$('<div class="clearfix"> </div>');
+								$h4.appendTo($div);$p.appendTo($div);$div1.appendTo($div);
+								$div.appendTo($("#baba1"));
+							}
+						});
+
+					</script>
+					<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+						<div class="modal-dialog" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+									<h4 class="modal-title" id="exampleModalLabel" style="color: #F07818">find your password</h4>
+								</div>
+								<div class="modal-body">
+									<form id="findpassword">
+										<div class="form-group">
+											<label for="recipient-name" class="control-label" style="color: #F07818">email:</label>
+											<input type="text" class="form-control" id="recipient-name">
+										</div>
+										<div class="form-group">
+											<label for="message-text" class="control-label" style="color: #F07818">CAPTCHA:</label>
+											<input type="text" class="form-control" id="message-text" ></textarea>
+										</div>
+									</form>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-default" >Checkout</button>
+									<button type="button" class="btn btn-primary">Send message</button>
+								</div>
+							</div>
+						</div>
 					</div>
+
 				</div>
 				<div class="clearfix"> </div>
 			</div>
 			<div class="clearfix"> </div>
 		</div>
 	</div>
+
+
 	<!--//header-->
 	<!--account-->
-	<form action="user/register" id="personinform" method="post">
+	<form action="" id="personinform">
 		<div class="account">
 			<div class="container">
 				<div class="register">
@@ -302,7 +371,7 @@
 							</div>
 							<div class="input">
 								<span>Email Address<label>*</label></span>
-								<input type="text" name="email">
+								<input type="text" name="username">
 							</div>
 							<div class="input">
 								<span>Phone Number<label>*</label></span>
@@ -322,12 +391,17 @@
 
 								<div class="input">
 									<span>Password<label>*</label></span>
-									<input type="password" name="password" id="pwd"  maxlength="12" placeholder="please set password 6~12" >
+									<input type="password" name="pwd" id="pwd"  maxlength="12"  placeholder="please set password 6~12" >
 								</div>
 								<div class="input">
 									<span>Confirm Password<label>*</label></span>
 									<input type="password" id="pwd1" name="pwd1" placeholder="please check your password" onkeyup="validate()"><span id="tishi"></span>
 								 </div>
+								<div class="input">
+									<span>CAPTCHA<label>*</label></span>
+									<input type="text" name="verifycode" id="vcode" >
+									<img src="" width="80" height="30">
+								</div>
 
 						</div>
 					<div class="clearfix"> </div>
@@ -385,10 +459,10 @@
 					<h4>Connect with Us</h4>
 					<ul>
 						<li><a href="#"><img src="images/i1.png" alt=""/>Follow us on Facebook</a></li>
-		 				<li><a href="#"><img src="images/i2.png" alt=""/>Follow us on Twitter</a></li>
+						<li><a href="#"><img src="images/i2.png" alt=""/>Follow us on Twitter</a></li>
 						<li><a href="#"><img src="images/i3.png" alt=""/>Follow us on Google-plus</a></li>
-	 				 	<li><a href="#"><img src="images/i4.png" alt=""/>Follow us on Pinterest</a></li>
-					</ul>
+						<li><a href="#"><img src="images/i4.png" alt=""/>Follow us on Pinterest</a></li>
+					</ul>>
 				</div>
 				<div class="clearfix"></div>
 			</div>
