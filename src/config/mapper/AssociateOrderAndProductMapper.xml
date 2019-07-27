@@ -6,6 +6,10 @@
     <result column="productId" jdbcType="INTEGER" property="productid" />
     <result column="orderId" jdbcType="INTEGER" property="orderid" />
   </resultMap>
+
+  <select id="selectLastID" resultType="java.lang.Integer">
+      select max(id) from AssociateOrderAndProduct;
+  </select>
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">

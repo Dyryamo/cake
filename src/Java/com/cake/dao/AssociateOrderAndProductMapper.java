@@ -27,4 +27,6 @@ public interface AssociateOrderAndProductMapper {
     int updateByPrimaryKeySelective(AssociateOrderAndProduct record);
 
     int updateByPrimaryKey(AssociateOrderAndProduct record);
+
+    int selectLastID();
 }

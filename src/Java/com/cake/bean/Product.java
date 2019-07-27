@@ -1,6 +1,7 @@
 package com.cake.bean;
 
 public class Product {
+
     private Integer id;
 
     private String name;
@@ -22,6 +23,24 @@ public class Product {
     private String photopath;
 
     private Integer star;
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                ", size=" + size +
+                ", discount=" + discount +
+                ", relationid=" + relationid +
+                ", flavourid=" + flavourid +
+                ", themeid=" + themeid +
+                ", type=" + type +
+                ", photopath='" + photopath + '\'' +
+                ", star=" + star +
+                ", number=" + number +
+                '}';
+    }
 
     private Integer number;
 

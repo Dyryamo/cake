@@ -6,7 +6,17 @@
     <result column="userID" jdbcType="INTEGER" property="userid" />
     <result column="productID" jdbcType="INTEGER" property="productid" />
     <result column="number" jdbcType="INTEGER" property="number" />
+    <association property="user" javaType="com.cake.bean.User" column="userID" select="com.cake.dao.UserMapper.selectByPrimaryKey">
+
+    </association>
+    <association property="product" javaType="com.cake.bean.Product" column="productID" select="com.cake.dao.ProductMapper.selectByPrimaryKey">
+
+    </association>
   </resultMap>
+
+  <!--<resultMap id="myCartResultMap" type="com.cake.bean.Cart">-->
+    <!---->
+  <!--</resultMap>-->
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">

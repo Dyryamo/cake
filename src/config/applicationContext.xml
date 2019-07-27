@@ -28,14 +28,19 @@
 
     <!-- spring  配置文件 , 主要配置和spring  业务逻辑相关-->
     <context:component-scan base-package="com.cake.*" use-default-filters="true">
-        <!--<context:exclude-filter type="annotation"-->
-                                <!--expression="org.springframework.stereotype.Controller"></context:exclude-filter>-->
+        <context:exclude-filter type="annotation"
+                                expression="org.springframework.stereotype.Controller"></context:exclude-filter>
     </context:component-scan>
     <!-- 引入mysql 数据库的参数-->
     <context:property-placeholder location="classpath:db.properties"></context:property-placeholder>
 
 
     <bean  class="com.cake.service.Impl.CartServiceImpl" id="cartServiceImpl"></bean>
+
+    <bean  class="com.cake.service.Impl.AdminstratorServiceImpl" id="adminstratorServiceImpl"></bean>
+
+    <bean  class="com.cake.service.Impl.OrderServiceImpl" id="orderServiceImpl"></bean>
+
 
 
     <bean id="pooledDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">

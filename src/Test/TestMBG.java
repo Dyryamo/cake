@@ -1,7 +1,3 @@
-import org.apache.ibatis.io.Resources;
-import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
-import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.junit.Test;
 import org.mybatis.generator.api.MyBatisGenerator;
 import org.mybatis.generator.config.Configuration;
@@ -14,7 +10,6 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.Reader;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,8 +28,10 @@ public class TestMBG {
         myBatisGenerator.generate(null);
     }
 
-    @Test
-    public void test1() throws IOException {
-
-    }
+//    @Test
+//    public void test1(){
+//        ApplicationContext ac = new ClassPathXmlApplicationContext("applicationContext.xml");
+////        LoginService loginServiceh = (LoginServiceImpl) ac.getBean("loginServiceImpl");
+//        loginServiceh.login(null);
+//    }
 }
