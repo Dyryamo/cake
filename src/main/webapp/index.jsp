@@ -116,13 +116,26 @@
             $div1.appendTo($a);
             $a.appendTo($div);
             $div3.appendTo($div);
-
             $div.appendTo($divzong);
         }
     </script>
     <script>
         $(document).ready(function(){
             TopThing("images/g1.jpg","50","images/g2.jpg","50");
+
+            $.ajax({
+                url : "<%= basePath%>/",
+                type : "post",
+                dataType : "json",
+                success : function(result){
+                    console.log(result);
+
+                },
+                error : function (r) {
+                    console.log(r);
+                    alert("连接失败")
+                }
+            });
             thing("images/g3.png","100.00");
             thing("images/g4.png","100.00");
             thing("images/g5.png","100.00");
@@ -131,6 +144,7 @@
             thing("images/g8.png","100.00");
             thing("images/g9.png","100.00");
             thing("images/g10.png","100.00");
+
 
         });
     </script>
