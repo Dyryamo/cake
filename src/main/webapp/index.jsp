@@ -1,5 +1,3 @@
-</body>
-</html>
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ page import="com.cake.bean.User" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -37,10 +35,10 @@
             var $divzong=$("#classgallery");
 
             var $div = $("<div class='col-md-8 gallery-grid glry-one'></div>");
-            var $a = $("<a href=\"products.html\"><img src=" + imgurl1 + " class=\"img-responsive\" alt=\"\"/>");
+            var $a = $("<a href=\"products.jsp\"><img src=" + imgurl1 + " class=\"img-responsive\" alt=\"\"/>");
             var $div1=$("<div class=\"gallery-info\">");
             var $p=$("<p><span class=\"glyphicon glyphicon-eye-open\" aria-hidden=\"true\"></span> view</p>");
-            var $a1=$("<a class=\"shop\" href=\"single.html\">SHOP NOW</a>");
+            var $a1=$("<a class=\"shop\" href=\"single.jsp\">SHOP NOW</a>");
             var $div2=$("<div class=\"clearfix\"> </div>");
             var $div3=$("<div class=\"galy-info\">");
             var $p=$("<p>Lorem Ipsum is simply</p>");
@@ -63,10 +61,10 @@
             $div.appendTo($divzong);
 
             var $div20 = $("<div class='col-md-4 gallery-grid glry-two'></div>");
-            var $a20 = $("<a href=\"products.html\"><img src=" + imgurl2 + " class=\"img-responsive\" alt=\"\"/>");
+            var $a20 = $("<a href=\"products.jsp\"><img src=" + imgurl2 + " class=\"img-responsive\" alt=\"\"/>");
             var $div1=$("<div class=\"gallery-info galrr-info-two\">");
             var $p20=$("<p><span class=\"glyphicon glyphicon-eye-open\" aria-hidden=\"true\"></span> view</p>");
-            var $a21=$("<a class=\"shop\" href=\"single.html\">SHOP NOW</a>");
+            var $a21=$("<a class=\"shop\" href=\"single.jsp\">SHOP NOW</a>");
             var $div22=$("<div class=\"clearfix\"> </div>");
             var $div23=$("<div class=\"galy-info\">");
             var $p20=$("<p>Lorem Ipsum is simply</p>");
@@ -89,15 +87,15 @@
             $div20.appendTo($divzong);
         }
 
-        function thing(imgurl, price) {
+        function thing(productId, name, imgurl, price) {
             var $div = $("<div class='col-md-3 gallery-grid'></div>");
-            var $a = $("<a href=\"products.html\"><img src=" + imgurl + " class=\"img-responsive\" alt=\"\"/>");
+            var $a = $("<a href=\"products.jsp\"><img src=" + imgurl + " class=\"img-responsive\" alt=\"\"/>");
             var $div1 = $("<div class=\"gallery-info\">");
             var $p1 = $("<p><span class=\"glyphicon glyphicon-eye-open\" aria-hidden=\"true\"></span> view</p>");
-            var $a1=$("<a class=\"shop\" href=\"single.html\">SHOP NOW</a>");
+            var $a1=$("<a class=\"shop\" href=\"toSingle?productId=" + productId + "\">SHOP NOW</a>");
             var $div2=$("<div class=\"clearfix\"> </div>");
             var $div3=$("<div class=\"galy-info\">");
-            var $p=$("<p>Lorem Ipsum is simply</p>");
+            var $p=$("<p>" + name + "</p>");
             var $div4=$("<div class=\"galry\">");
             var $div5=$("<div class=\"prices\">");
             var $h=$("<h5 class=\"item_price\">$"+price+"</h5>");
@@ -124,26 +122,20 @@
             TopThing("images/g1.jpg","50","images/g2.jpg","50");
 
             $.ajax({
-                url : "<%= basePath%>/",
+                url : "<%= basePath%>/product/randomProduct?num=8",
                 type : "post",
                 dataType : "json",
                 success : function(result){
-                    console.log(result);
-
+                    console.log(result.extend.products);
+                    for(var i=0; i<result.extend.products.length; i++){
+                        thing( result.extend.products[i].id, result.extend.products[i].name,"http://120.79.249.199/"+result.extend.products[i].photopath, result.extend.products[i].price);
+                    }
                 },
                 error : function (r) {
                     console.log(r);
                     alert("连接失败")
                 }
             });
-            thing("images/g3.png","100.00");
-            thing("images/g4.png","100.00");
-            thing("images/g5.png","100.00");
-            thing("images/g6.png","100.00");
-            thing("images/g7.png","100.00");
-            thing("images/g8.png","100.00");
-            thing("images/g9.png","100.00");
-            thing("images/g10.png","100.00");
 
 
         });
@@ -161,12 +153,12 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <h1 class="navbar-brand"><a  href="index.html">Yummy</a></h1>
+                <h1 class="navbar-brand"><a  href="index.jsp">Yummy</a></h1>
             </div>
             <!--navbar-header-->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li><a href="index.html" class="active">Home</a></li>
+                    <li><a href="index.jsp" class="active">Home</a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Birthday<b class="caret"></b></a>
                         <ul class="dropdown-menu multi-column columns-4">
@@ -174,45 +166,45 @@
                                 <div class="col-sm-3">
                                     <h4>By Relation</h4>
                                     <ul class="multi-column-dropdown">
-                                        <li><a class="list" href="products.html">Friend</a></li>
-                                        <li><a class="list" href="products.html">Lover</a></li>
-                                        <li><a class="list" href="products.html">Sister</a></li>
-                                        <li><a class="list" href="products.html">Brother</a></li>
-                                        <li><a class="list" href="products.html">Kids</a></li>
-                                        <li><a class="list" href="products.html">Parents</a></li>
+                                        <li><a class="list" href="products.jsp">Friend</a></li>
+                                        <li><a class="list" href="products.jsp">Lover</a></li>
+                                        <li><a class="list" href="products.jsp">Sister</a></li>
+                                        <li><a class="list" href="products.jsp">Brother</a></li>
+                                        <li><a class="list" href="products.jsp">Kids</a></li>
+                                        <li><a class="list" href="products.jsp">Parents</a></li>
                                     </ul>
                                 </div>
                                 <div class="col-sm-3">
                                     <h4>By Flavour</h4>
                                     <ul class="multi-column-dropdown">
-                                        <li><a class="list" href="products.html">Chocolate</a></li>
-                                        <li><a class="list" href="products.html">Mixed Fruit</a></li>
-                                        <li><a class="list" href="products.html">Butterscotch</a></li>
-                                        <li><a class="list" href="products.html">Strawberry</a></li>
-                                        <li><a class="list" href="products.html">Vanilla</a></li>
-                                        <li><a class="list" href="products.html">Eggless Cakes</a></li>
+                                        <li><a class="list" href="products.jsp">Chocolate</a></li>
+                                        <li><a class="list" href="products.jsp">Mixed Fruit</a></li>
+                                        <li><a class="list" href="products.jsp">Butterscotch</a></li>
+                                        <li><a class="list" href="products.jsp">Strawberry</a></li>
+                                        <li><a class="list" href="products.jsp">Vanilla</a></li>
+                                        <li><a class="list" href="products.jsp">Eggless Cakes</a></li>
                                     </ul>
                                 </div>
                                 <div class="col-sm-3">
                                     <h4>By Theme</h4>
                                     <ul class="multi-column-dropdown">
-                                        <li><a class="list" href="products.html">Heart shaped</a></li>
-                                        <li><a class="list" href="products.html">Cartoon Cakes</a></li>
-                                        <li><a class="list" href="products.html">2-3 Tier Cakes</a></li>
-                                        <li><a class="list" href="products.html">Square shape</a></li>
-                                        <li><a class="list" href="products.html">Round shape</a></li>
-                                        <li><a class="list" href="products.html">Photo cakes</a></li>
+                                        <li><a class="list" href="products.jsp">Heart shaped</a></li>
+                                        <li><a class="list" href="products.jsp">Cartoon Cakes</a></li>
+                                        <li><a class="list" href="products.jsp">2-3 Tier Cakes</a></li>
+                                        <li><a class="list" href="products.jsp">Square shape</a></li>
+                                        <li><a class="list" href="products.jsp">Round shape</a></li>
+                                        <li><a class="list" href="products.jsp">Photo cakes</a></li>
                                     </ul>
                                 </div>
                                 <div class="col-sm-3">
                                     <h4>Weight</h4>
                                     <ul class="multi-column-dropdown">
-                                        <li><a class="list" href="products.html">1 kG</a></li>
-                                        <li><a class="list" href="products.html">1.5 kG</a></li>
-                                        <li><a class="list" href="products.html">2 kG</a></li>
-                                        <li><a class="list" href="products.html">3 kG</a></li>
-                                        <li><a class="list" href="products.html">4 kG</a></li>
-                                        <li><a class="list" href="products.html">Large</a></li>
+                                        <li><a class="list" href="products.jsp">1 kG</a></li>
+                                        <li><a class="list" href="products.jsp">1.5 kG</a></li>
+                                        <li><a class="list" href="products.jsp">2 kG</a></li>
+                                        <li><a class="list" href="products.jsp">3 kG</a></li>
+                                        <li><a class="list" href="products.jsp">4 kG</a></li>
+                                        <li><a class="list" href="products.jsp">Large</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -225,45 +217,45 @@
                                 <div class="col-sm-3">
                                     <h4>By Relation</h4>
                                     <ul class="multi-column-dropdown">
-                                        <li><a class="list" href="products.html">Friend</a></li>
-                                        <li><a class="list" href="products.html">Lover</a></li>
-                                        <li><a class="list" href="products.html">Sister</a></li>
-                                        <li><a class="list" href="products.html">Brother</a></li>
-                                        <li><a class="list" href="products.html">Kids</a></li>
-                                        <li><a class="list" href="products.html">Parents</a></li>
+                                        <li><a class="list" href="products.jsp">Friend</a></li>
+                                        <li><a class="list" href="products.jsp">Lover</a></li>
+                                        <li><a class="list" href="products.jsp">Sister</a></li>
+                                        <li><a class="list" href="products.jsp">Brother</a></li>
+                                        <li><a class="list" href="products.jsp">Kids</a></li>
+                                        <li><a class="list" href="products.jsp">Parents</a></li>
                                     </ul>
                                 </div>
                                 <div class="col-sm-3">
                                     <h4>By Flavour</h4>
                                     <ul class="multi-column-dropdown">
-                                        <li><a class="list" href="products.html">Chocolate</a></li>
-                                        <li><a class="list" href="products.html">Mixed Fruit</a></li>
-                                        <li><a class="list" href="products.html">Butterscotch</a></li>
-                                        <li><a class="list" href="products.html">Strawberry</a></li>
-                                        <li><a class="list" href="products.html">Vanilla</a></li>
-                                        <li><a class="list" href="products.html">Eggless Cakes</a></li>
+                                        <li><a class="list" href="products.jsp">Chocolate</a></li>
+                                        <li><a class="list" href="products.jsp">Mixed Fruit</a></li>
+                                        <li><a class="list" href="products.jsp">Butterscotch</a></li>
+                                        <li><a class="list" href="products.jsp">Strawberry</a></li>
+                                        <li><a class="list" href="products.jsp">Vanilla</a></li>
+                                        <li><a class="list" href="products.jsp">Eggless Cakes</a></li>
                                     </ul>
                                 </div>
                                 <div class="col-sm-3">
                                     <h4>By Theme</h4>
                                     <ul class="multi-column-dropdown">
-                                        <li><a class="list" href="products.html">Heart shaped</a></li>
-                                        <li><a class="list" href="products.html">Cartoon Cakes</a></li>
-                                        <li><a class="list" href="products.html">2-3 Tier Cakes</a></li>
-                                        <li><a class="list" href="products.html">Square shape</a></li>
-                                        <li><a class="list" href="products.html">Round shape</a></li>
-                                        <li><a class="list" href="products.html">Photo cakes</a></li>
+                                        <li><a class="list" href="products.jsp">Heart shaped</a></li>
+                                        <li><a class="list" href="products.jsp">Cartoon Cakes</a></li>
+                                        <li><a class="list" href="products.jsp">2-3 Tier Cakes</a></li>
+                                        <li><a class="list" href="products.jsp">Square shape</a></li>
+                                        <li><a class="list" href="products.jsp">Round shape</a></li>
+                                        <li><a class="list" href="products.jsp">Photo cakes</a></li>
                                     </ul>
                                 </div>
                                 <div class="col-sm-3">
                                     <h4>Weight</h4>
                                     <ul class="multi-column-dropdown">
-                                        <li><a class="list" href="products.html">1 kG</a></li>
-                                        <li><a class="list" href="products.html">1.5 kG</a></li>
-                                        <li><a class="list" href="products.html">2 kG</a></li>
-                                        <li><a class="list" href="products.html">3 kG</a></li>
-                                        <li><a class="list" href="products.html">4 kG</a></li>
-                                        <li><a class="list" href="products.html">Large</a></li>
+                                        <li><a class="list" href="products.jsp">1 kG</a></li>
+                                        <li><a class="list" href="products.jsp">1.5 kG</a></li>
+                                        <li><a class="list" href="products.jsp">2 kG</a></li>
+                                        <li><a class="list" href="products.jsp">3 kG</a></li>
+                                        <li><a class="list" href="products.jsp">4 kG</a></li>
+                                        <li><a class="list" href="products.jsp">Large</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -276,45 +268,45 @@
                                 <div class="col-sm-3">
                                     <h4>By Relation</h4>
                                     <ul class="multi-column-dropdown">
-                                        <li><a class="list" href="products.html">Friend</a></li>
-                                        <li><a class="list" href="products.html">Lover</a></li>
-                                        <li><a class="list" href="products.html">Sister</a></li>
-                                        <li><a class="list" href="products.html">Brother</a></li>
-                                        <li><a class="list" href="products.html">Kids</a></li>
-                                        <li><a class="list" href="products.html">Parents</a></li>
+                                        <li><a class="list" href="products.jsp">Friend</a></li>
+                                        <li><a class="list" href="products.jsp">Lover</a></li>
+                                        <li><a class="list" href="products.jsp">Sister</a></li>
+                                        <li><a class="list" href="products.jsp">Brother</a></li>
+                                        <li><a class="list" href="products.jsp">Kids</a></li>
+                                        <li><a class="list" href="products.jsp">Parents</a></li>
                                     </ul>
                                 </div>
                                 <div class="col-sm-3">
                                     <h4>By Flavour</h4>
                                     <ul class="multi-column-dropdown">
-                                        <li><a class="list" href="products.html">Chocolate</a></li>
-                                        <li><a class="list" href="products.html">Mixed Fruit</a></li>
-                                        <li><a class="list" href="products.html">Butterscotch</a></li>
-                                        <li><a class="list" href="products.html">Strawberry</a></li>
-                                        <li><a class="list" href="products.html">Vanilla</a></li>
-                                        <li><a class="list" href="products.html">Eggless Cakes</a></li>
+                                        <li><a class="list" href="products.jsp">Chocolate</a></li>
+                                        <li><a class="list" href="products.jsp">Mixed Fruit</a></li>
+                                        <li><a class="list" href="products.jsp">Butterscotch</a></li>
+                                        <li><a class="list" href="products.jsp">Strawberry</a></li>
+                                        <li><a class="list" href="products.jsp">Vanilla</a></li>
+                                        <li><a class="list" href="products.jsp">Eggless Cakes</a></li>
                                     </ul>
                                 </div>
                                 <div class="col-sm-3">
                                     <h4>By Theme</h4>
                                     <ul class="multi-column-dropdown">
-                                        <li><a class="list" href="products.html">Heart shaped</a></li>
-                                        <li><a class="list" href="products.html">Cartoon Cakes</a></li>
-                                        <li><a class="list" href="products.html">2-3 Tier Cakes</a></li>
-                                        <li><a class="list" href="products.html">Square shape</a></li>
-                                        <li><a class="list" href="products.html">Round shape</a></li>
-                                        <li><a class="list" href="products.html">Photo cakes</a></li>
+                                        <li><a class="list" href="products.jsp">Heart shaped</a></li>
+                                        <li><a class="list" href="products.jsp">Cartoon Cakes</a></li>
+                                        <li><a class="list" href="products.jsp">2-3 Tier Cakes</a></li>
+                                        <li><a class="list" href="products.jsp">Square shape</a></li>
+                                        <li><a class="list" href="products.jsp">Round shape</a></li>
+                                        <li><a class="list" href="products.jsp">Photo cakes</a></li>
                                     </ul>
                                 </div>
                                 <div class="col-sm-3">
                                     <h4>Weight</h4>
                                     <ul class="multi-column-dropdown">
-                                        <li><a class="list" href="products.html">1 kG</a></li>
-                                        <li><a class="list" href="products.html">1.5 kG</a></li>
-                                        <li><a class="list" href="products.html">2 kG</a></li>
-                                        <li><a class="list" href="products.html">3 kG</a></li>
-                                        <li><a class="list" href="products.html">4 kG</a></li>
-                                        <li><a class="list" href="products.html">Large</a></li>
+                                        <li><a class="list" href="products.jsp">1 kG</a></li>
+                                        <li><a class="list" href="products.jsp">1.5 kG</a></li>
+                                        <li><a class="list" href="products.jsp">2 kG</a></li>
+                                        <li><a class="list" href="products.jsp">3 kG</a></li>
+                                        <li><a class="list" href="products.jsp">4 kG</a></li>
+                                        <li><a class="list" href="products.jsp">Large</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -369,7 +361,7 @@
                                 "            <input type=\"submit\" id=\"login\" value=\"Sign in\">\n" +
                                 "            <label for=\"checkbox\"><input type=\"checkbox\" id=\"checkbox\"> <i>Remember me</i></label>\n" +
                                 "        </fieldset>\n" +
-                                "        <p>New User ? <a class=\"sign\" href=\"account.html\">Sign Up</a> <span><a href=\"\" data-toggle=\"modal\" data-target=\"#exampleModal\" data-whatever=\"@mdo\">Forgot your password?</a></span></p>\n" +
+                                "        <p>New User ? <a class=\"sign\" href=\"account.jsp\">Sign Up</a> <span><a href=\"\" data-toggle=\"modal\" data-target=\"#exampleModal\" data-whatever=\"@mdo\">Forgot your password?</a></span></p>\n" +
                                 "    </form>\n");
                     } else {
                         User user = (User) session.getAttribute("user");
@@ -389,7 +381,7 @@
             <div class="header-right cart">
                 <a href="#"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></a>
                 <div class="cart-box">
-                    <h4><a href="checkout.html">
+                    <h4><a href="checkout.jsp">
                         <span class="simpleCart_total"> $0.00 </span> (<span id="simpleCart_quantity" class="simpleCart_quantity"> 0 </span>)
                     </a></h4>
                     <p><a href="javascript:;" class="simpleCart_empty">Empty cart</a></p>
@@ -407,7 +399,7 @@
     <div class="container">
         <h2 class="hdng">Yummy <span>Cakes</span> for u</h2>
         <p>Our best cakes make your day special</p>
-        <a href="products.html">SHOP NOW</a>
+        <a href="products.jsp">SHOP NOW</a>
         <div class="banner-text">
             <img src="images/2.png" alt=""/>
         </div>
@@ -440,7 +432,7 @@
             <div class="col-md-2 footer-grid">
                 <h4>company</h4>
                 <ul>
-                    <li><a href="products.html">products</a></li>
+                    <li><a href="products.jsp">products</a></li>
                     <li><a href="#">Work Here</a></li>
                     <li><a href="#">Team</a></li>
                     <li><a href="#">Happenings</a></li>

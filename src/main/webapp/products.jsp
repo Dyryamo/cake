@@ -1,8 +1,8 @@
 <%@ page import="com.cake.bean.User" %><%--
   Created by IntelliJ IDEA.
   User: root
-  Date: 19-7-26
-  Time: 下午3:45
+  Date: 19-7-27
+  Time: 下午2:49
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -13,7 +13,7 @@
 %>
 <html>
 <head>
-    <title>注册</title>
+    <title>Products</title>
     <!-- Custom Theme files -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -22,78 +22,101 @@
     <!-- //Custom Theme files -->
     <link href="css/bootstrap.css" type="text/css" rel="stylesheet" media="all">
     <link href="css/style.css" type="text/css" rel="stylesheet" media="all">
+    <link href="css/form.css" rel="stylesheet" type="text/css" media="all" />
     <!-- js -->
     <script src="js/jquery.min.js"></script>
     <script type="text/javascript" src="js/bootstrap-3.1.1.min.js"></script>
-
-    <script>
-        $.fn.serializeObject = function(){
-            var o={};
-            var a=this.serializeArray();
-            $.each(a,function() {
-                if (o[this.name]) {
-                    if(!o[this.name].push){
-                        o[this.name] = [o[this.name]];
-                    }
-                    o[this.name].push(this.value || '');
-                } else{
-                    o[this.name]
-                    this.value || '';
-                }
-            });
-            return o;
-        };
-        var formObject = $("#personinform").serializeObject(),
-            formArray=$("#personinform").serializeArray();
-
-    </script>
     <!-- //js -->
     <!-- cart -->
     <script src="js/simpleCart.min.js"> </script>
-
-
+    <!-- cart -->
+    <!-- the jScrollPane script -->
+    <script type="text/javascript" src="js/jquery.jscrollpane.min.js"></script>
+    <script type="text/javascript" id="sourcecode">
+        $(function()
+        {
+            $('.scroll-pane').jScrollPane();
+        });
+    </script>
+    <!-- //the jScrollPane script -->
+    <script type="text/javascript" src="js/jquery.mousewheel.js"></script>
     <script>
-        function validate(){
-            var pwd1= document.getElementById("pwd").value;
-            var pwd2= document.getElementById("pwd1").value;
-            if(pwd1 == pwd2){
-                document.getElementById("tishi").innerHTML="<label style=\"color: green ; font-size: 2em; font-family: Marvel-Regular \">The two passwords match</label>";
-                document.getElementById("button").disabled = false;
-            }else{
-                document.getElementById("tishi").innerHTML="<label style=\"color: red ; font-size: 2em;font-family: Marvel-Regular\">The two passwords do not match</label>";
-                document.getElementById("button").disabled = true;
-            }
-        }
-        function check(){
-            var reg = new RegExp("^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$"); //正则表达式
-            var obj = document.getElementById("mail"); //要验证的对象
-            if(!reg.test(obj.value)){ //正则验证不通过，格式不对
-                $("#mailJd").text("邮箱格式验证不通过!");
-                $(obj).parent().addClass("has-error");
-                return false;
-            }else{
-                $("#mailJd").text("");
-                $(obj).parent().removeClass("has-error");
-                $(obj).parent().addClass("has-success");
-                return true;
-            }
-        }
-        function addInputClass(name){
-            var $inp = $("input[name=\"" + name + "\"]");
-            if ($inp.val() == ""){
-                $inp.parent().addClass("has-error");
-            } else {
-                $inp.parent().removeClass("has-error");
-                $inp.parent().addClass("has-success");
-            }
+        function thing(productId, imgurl,name,pricenow,pricepre,discount) {
+            var $divzong=$("#classparent");
+
+            var $div = $("<div class='product-grid'></div>");
+            var $a = $("<a href=\"toSingle?productId=" + productId + "\">");
+            var $div1 = $("<div class=\"more-product\"><span> </span></div>");
+            var $div2 = $("<div class=\"product-img b-link-stripe b-animate-go  thickbox\">");
+            var $img1=$("<img src=" + imgurl + " class=\"img-responsive\" alt=\"\">");
+            var $div3 = $("<div class='b-wrapper'></div>");
+            var $h=$("<h4 class=\"b-animate b-from-left  b-delay03\">");
+            var $button=$("<button>View</button>");
+            var $div4 = $("<div class='product-info simpleCart_shelfItem'></div>");
+            var $div5 = $("<div class='product-info-cust prt_name'></div>");
+            var $h1 =$("<h4>"+name +"</h4>");
+            var $span=$("<span class=\"item_price\">$"+pricenow+"</span>");
+            var $div6 = $("<div class='ofr'></div>");
+            var $p = $("<p class=\"pric1\"><del>$"+pricepre+"</del></p>");
+            var $p1 = $("<p class=\"disc\">["+discount+"% off]</p>");
+            var input =$("<input type=\"text\" class=\"item_quantity\" value=\"1\" />");
+            var input1 =$("<input type=\"button\" class=\"item_add items\" value=\"Add\">");
+            var $div7 = $("<div class=\"clearfix\"> </div>");
+
+            $p.appendTo($div6);
+            $p1.appendTo($div6);
+            $h1.appendTo($div5);
+            $span.appendTo($div5);
+            $div6.appendTo($div5);
+            input.appendTo($div5);
+            input1.appendTo($div5);
+            $div7.appendTo($div5);
+            $div5.appendTo($div4);
+            $button.appendTo($h);
+            $h.appendTo($div3);
+            $div3.appendTo($div2);
+            $img1.appendTo($div2);
+            $div2.appendTo($a);
+            $div1.appendTo($a);
+            $a.appendTo($div);
+            $div4.appendTo($div);
+            $div.appendTo($divzong);
         }
     </script>
-    <!-- cart -->
+    <script>
+        function addElement(result){
+            $("#classparent").empty();
+            console.log(result.extend.products);
+            for (var i = 0; i < result.extend.products.length; i++) {
+                var price =  result.extend.products[i].price;
+                var discount = result.extend.products[i].discount;
+                var realPrice = (parseInt(price))* (parseInt(discount)) / 100;
+                realPrice = parseInt(realPrice);
+                thing( result.extend.products[i].id ,"http://120.79.249.199/"+result.extend.products[i].photopath, result.extend.products[i].name, realPrice, price, discount);
+            }
+        }
+        $(document).ready(function(){
+            $.ajax({
+                url : "<%=basePath %>product/allProduct",
+                type : "post",
+                dataType : "json",
+                success : function(result){
+                    addElement(result);
+                },
+                error : function (e) {
+                    console.log(e);
+                    alert("连接失败");
+                }
+
+            });
+        });
+    </script>
+    <!-- the mousewheel plugin -->
 </head>
 <body>
 <!--header-->
 <div class="header">
-    <div class="container">
+    <div class="cont0ainer">
         <nav class="navbar navbar-default" role="navigation">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -281,214 +304,206 @@
             </div>
             <div class="header-right login">
                 <a href="#"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></a>
-                <%
-                    if (session.getAttribute("user") == null){
-                        out.print("<div id=\"loginBox\">\n" +
-                                "    <form action=\"/user/login\" method=\"post\" id=\"loginForm\">\n" +
-                                "        <fieldset id=\"body\">\n" +
-                                "            <fieldset>\n" +
-                                "                <label for=\"email\">Email Address</label>\n" +
-                                "                <input type=\"text\" name=\"email\" id=\"email\">\n" +
-                                "            </fieldset>\n" +
-                                "            <fieldset>\n" +
-                                "                <label for=\"password\">Password</label>\n" +
-                                "                <input type=\"password\" name=\"password\" id=\"password\">\n" +
-                                "            </fieldset>\n" +
-                                "            <fieldset>\n" +
-                                "                <label for=\"password\">CAPTCHA</label>\n" +
-                                "                <input type=\"text\" name=\"vcode\" id=\"CAPTCHA\"  style=\"width: 67%; margin-left: 0px\" >\n" +
-                                "                <span style=\"width: 50%;\"><img id=\"loginCode\" src=\"\" width=\"80\" height=\"30\"></span>\n" +
-                                "                <script>\n" +
-                                "                   $(document).ready(function () {\n" +
-                                "                        $(\"#loginCode\").prop(\"src\", \"/image/loginVcode?time=\" + (new Date()).getTime());\n" +
-                                "                        $(\"#loginCode\").click(function () {\n" +
-                                "                            $(\"#loginCode\").prop(\"src\", \"/image/loginVcode?time=\" + (new Date()).getTime());\n" +
-                                "                        });\n" +
-                                "                   })\n" +
-                                "               </script>" +
-                                "            </fieldset>\n" +
-                                "            <input type=\"submit\" id=\"login\" value=\"Sign in\">\n" +
-                                "            <label for=\"checkbox\"><input type=\"checkbox\" id=\"checkbox\"> <i>Remember me</i></label>\n" +
-                                "        </fieldset>\n" +
-                                "        <p>New User ? <a class=\"sign\" href=\"account.jsp\">Sign Up</a> <span><a href=\"\" data-toggle=\"modal\" data-target=\"#exampleModal\" data-whatever=\"@mdo\">Forgot your password?</a></span></p>\n" +
-                                "    </form>\n" +
-                                "</div>");
-                    } else {
-                        User user = (User) session.getAttribute("user");
-                        out.print("<form action=\"/user/loginOut\" method=\"post\" id=\"loginForm\">\n" +
-                                "        <fieldset id=\"body\">\n" +
-                                "            <fieldset>\n" +
-                                "                <label for=\"email\">Email Adress</label>"+
-                                "                <label for=\"email\"> " + user.getEmail() + " \n" +
-                                "            </fieldset>\n" +
-                                "            <input type=\"submit\" id=\"login\" value=\"Sign out\">\n" +
-                                "        </fieldset>\n" +
-                                "    </form>\n");
-                    }
-                %>
+                <div id="loginBox">
+                    <%
 
+                        if (session.getAttribute("user") == null){
+                            out.print("<form action=\"/user/login\" method=\"post\" id=\"loginForm\">\n" +
+                                    "        <fieldset id=\"body\">\n" +
+                                    "            <fieldset>\n" +
+                                    "                <label for=\"email\">Email Address</label>\n" +
+                                    "                <input type=\"text\" name=\"email\" id=\"email\">\n" +
+                                    "            </fieldset>\n" +
+                                    "            <fieldset>\n" +
+                                    "                <label for=\"password\">Password</label>\n" +
+                                    "                <input type=\"password\" name=\"password\" id=\"password\">\n" +
+                                    "            </fieldset>\n" +
+                                    "            <fieldset>\n" +
+                                    "                <label for=\"password\">CAPTCHA</label>\n" +
+                                    "                <input type=\"text\" name=\"vcode\" id=\"CAPTCHA\"  style=\"width: 67%; margin-left: 0px\" >\n" +
+                                    "                <span style=\"width: 50%;\"><img id=\"loginCode\" src=\"\" width=\"80\" height=\"30\"></span>\n" +
+                                    "                <script>\n" +
+                                    "                   $(document).ready(function () {\n" +
+                                    "                        $(\"#loginCode\").prop(\"src\", \"/image/loginVcode?time=\" + (new Date()).getTime());\n" +
+                                    "                        $(\"#loginCode\").click(function () {\n" +
+                                    "                            $(\"#loginCode\").prop(\"src\", \"/image/loginVcode?time=\" + (new Date()).getTime());\n" +
+                                    "                        });\n" +
+                                    "                   })\n" +
+                                    "               </script>" +
+                                    "            </fieldset>\n" +
+                                    "            <input type=\"submit\" id=\"login\" value=\"Sign in\">\n" +
+                                    "            <label for=\"checkbox\"><input type=\"checkbox\" id=\"checkbox\"> <i>Remember me</i></label>\n" +
+                                    "        </fieldset>\n" +
+                                    "        <p>New User ? <a class=\"sign\" href=\"account.jsp\">Sign Up</a> <span><a href=\"\" data-toggle=\"modal\" data-target=\"#exampleModal\" data-whatever=\"@mdo\">Forgot your password?</a></span></p>\n" +
+                                    "    </form>\n");
+                        } else {
+                            User user = (User) session.getAttribute("user");
+                            out.print("<form action=\"/user/loginOut\" method=\"post\" id=\"loginForm\">\n" +
+                                    "        <fieldset id=\"body\">\n" +
+                                    "            <fieldset>\n" +
+                                    "                <label for=\"email\">Email Adress</label>"+
+                                    "                <label for=\"email\"> " + user.getEmail() + " \n" +
+                                    "            </fieldset>\n" +
+                                    "            <input type=\"submit\" id=\"login\" value=\"Sign out\">\n" +
+                                    "        </fieldset>\n" +
+                                    "    </form>\n");
+                        }
+                    %>
+                </div>
             </div>
             <div class="header-right cart">
                 <a href="#"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></a>
-                <script>
-                    $(function(){
-                        num(1,2);
-                        function num(num,pric){
-                            var $div=$('<div class="cart-box">');
-                            var $h4=$('<h4><a href="checkout.html"> <span class="simpleCart_total" id="price_tag"> pric</span> (<span id="simpleCart_quantity" class="simpleCart_quantity"> num </span>) </a></h4>');
-                            var $p=$('<p><a href="javascript:;" class="simpleCart_empty">Empty Cart</a></p>');
-                            var $div1=$('<div class="clearfix"> </div>');
-                            $h4.appendTo($div);$p.appendTo($div);$div1.appendTo($div);
-                            $div.appendTo($("#baba1"));
-                        }
-                    });
-
-                </script>
-                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <h4 class="modal-title" id="exampleModalLabel" style="color: #F07818">find your password</h4>
-                            </div>
-                            <div class="modal-body">
-                                <form id="findpassword">
-                                    <div class="form-group">
-                                        <label for="recipient-name" class="control-label" style="color: #F07818">email:</label>
-                                        <input type="text" name="forgetMail" class="form-control" id="recipient-name">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="message-text" class="control-label" style="color: #F07818">CAPTCHA:</label>
-                                        <input type="text" name="forgetCode" class="form-control" id="message-text" ></textarea>
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" onclick="forgetMail()" >Checkout</button>
-                                <button type="button" class="btn btn-primary" onclick="sendMail()">Send message</button>
-                            </div>
-                            <script>
-                                function sendMail() {
-                                    var mail = $("input[name='forgetMail']").val();
-                                    if (mail == "")
-                                        return;
-                                    console.log(mail);
-                                    $.ajax({
-                                        url:"<%=basePath %>image/sendMail?email="+mail,
-                                        type : "POST",
-                                        success : function () {
-                                            alert("发送成功");
-                                        },
-                                        error : function () {
-                                            alert("发送失败");
-                                        }
-                                    });
-                                }
-
-                                function forgetMail(){
-                                    var mail = $("input[name='forgetMail']").val();
-                                    var code = $("input[name='forgetCode']").val();
-                                    if (mail == "" || code == "")
-                                        return;
-                                    console.log(mail);
-                                    $.ajax({
-                                        url:"<%=basePath %>user/forgetPwd",
-                                        data : {
-                                            "mail" : mail,
-                                            "vcode" : code
-                                        },
-                                        type : "POST",
-                                        success : function () {
-                                            alert("发送成功");
-                                        },
-                                        error : function () {
-                                            alert("发送失败");
-                                        }
-                                    });
-                                }
-                            </script>
-                        </div>
-                    </div>
+                <div class="cart-box">
+                    <h4><a href="checkout.html">
+                        <span class="simpleCart_total"> $0.00 </span> (<span id="simpleCart_quantity" class="simpleCart_quantity"> 0 </span>)
+                    </a></h4>
+                    <p><a href="javascript:;" class="simpleCart_empty">Empty cart</a></p>
+                    <div class="clearfix"> </div>
                 </div>
-
             </div>
             <div class="clearfix"> </div>
         </div>
         <div class="clearfix"> </div>
     </div>
 </div>
-
-
 <!--//header-->
-<!--account-->
-<form action="/user/register" class="form-group" method="post" id="personinform">
-    <div class="account">
-        <div class="container">
-            <div class="register">
+<!--products-->
+<div class="products">
+    <div class="container">
+        <h2>Our Products</h2>
+        <div class="col-md-9 product-model-sec" id="classparent">
 
-                <div class="register-top-grid">
-                    <h3>Personal information</h3>
-                    <div class="input">
-                        <span>First Name<label>*</label></span>
-                        <input type="text" class="form-control" onkeyup="addInputClass('firstname')" name="firstname">
-                    </div>
-                    <div class="input">
-                        <span>Last Name<label>*</label></span>
-                        <input type="text" class="form-control" onkeyup="addInputClass('lastname')" name="lastname">
-                    </div>
-                    <div class="input">
-                        <span>Email Address<label>*</label><label id="mailJd" style="color: red;"></label></span>
-                        <input type="text" class="form-control" id="mail" onkeyup="check()" name="email">
-                    </div>
-                    <div class="input">
-                        <span>Phone Number<label>*</label></span>
-                        <input type="text" class="form-control" onkeyup="addInputClass('phonenumber')" name="phonenumber">
-                    </div>
-                    <div class="input">
-                        <span>Address<label>*</label></span>
-                        <input type="text" class="form-control" onkeyup="addInputClass('address')" name="address" >
-                    </div>
-                    <a class="news-letter" href="#">
-                        <label class="checkbox"><input type="checkbox" class="form-control" name="checkbox" checked=""><i> </i>Sign Up for Newsletter</label>
-                    </a>
-                    <div class="clearfix">  </div>
-                </div>
-                <div class="register-bottom-grid">
-                    <h3>Login information</h3>
+        </div>
+        <div class="col-md-3 rsidebar span_1_of_left">
 
-                    <div class="input">
-                        <span>Password<label>*</label></span>
-                        <input type="password" class="form-control" name="password" id="pwd"  maxlength="12"  placeholder="please set password 6~12" >
+            <section  class="sky-form">
+                <h4><span class="glyphicon glyphicon-minus" aria-hidden="true"></span>DISCOUNTS</h4>
+                <div class="row row1 scroll-pane">
+                    <div class="col col-4">
+                        <label class="checkbox"><input type="radio" ><i dis="dis" minDis="10" maxDis="100" onclick="addName(this)"></i>Upto - 10%</label>
                     </div>
-                    <div class="input">
-                        <span>Confirm Password<label>*</label></span>
-                        <input type="password" class="form-control" id="pwd1" name="pwd1" placeholder="please check your password" onkeyup="validate()"><span id="tishi"></span>
-                    </div>
-                    <div class="input">
-                        <span>CAPTCHA<label>*</label></span>
-                        <input type="text"  name="vcode" id="vcode" >
-                        <img id="registerCode" src="" width="80" height="30">
+                    <div class="col col-4main">
+                        <label class="checkbox"><input type="radio" ><i dis="dis" minDis="60" maxDis="70" onclick="addName(this)"></i>70% - 60%</label>
+                        <label class="checkbox"><input type="radio" ><i dis="dis" minDis="40" maxDis="50" onclick="addName(this)"></i>50% - 40%</label>
+                        <label class="checkbox"><input type="radio" ><i dis="dis" minDis="20" maxDis="30" onclick="addName(this)"></i>30% - 20%</label>
+                        <label class="checkbox"><input type="radio" ><i dis="dis" minDis="5" maxDis="10" onclick="addName(this)"></i>10% - 5% </label>
+                        <label class="checkbox"><input type="radio" ><i dis="dis" name="check"  minDis="0" maxDis="100" onclick="addName(this)"></i>Other</label>
                     </div>
                     <script>
-                        $(document).ready(function () {
-                            $("#registerCode").prop("src", "/image/registerVcode?time=" + (new Date()).getTime());
-                            $("#registerCode").click(function () {
-                                $("#registerCode").prop("src", "/image/registerVcode?time=" + (new Date()).getTime());
-                            });
-                        });
+                        sendSearCh = {
+                            minDis : "0",
+                            maxDis : "100",
+                            minPrice : 0,
+                            maxPrice : 300
+                        };
+                        function addName(ths) {
+                            $("i[dis='dis']").attr("name", "null");
+                            $(ths).attr("name", "check");
+                            searchProduct();
+                        }
+                        function searchProduct() {
+                            var minDis = $("i[name='check']").attr("minDis");
+                            var maxDis = $("i[name='check']").attr("maxDis");
+                            var data = {
+                                minDis : minDis,
+                                maxDis : maxDis,
+                                minPrice : minPrice,
+                                maxPrice : maxPrice
+                            };
+                            if (sendSearCh.maxDis == data.maxDis && sendSearCh.minDis == data.minDis && sendSearCh.maxPrice == data.maxPrice && sendSearCh.minPrice == data.minPrice)
+                                return ;
+                            sendSearCh = data;
+                            $.ajax({
+                                url : "<%= basePath%>product/searchProduct",
+                                type : "post",
+                                data : sendSearCh,
+                                datatype:"JSON",
+                                success : function (result) {
+                                    addElement(result);
+                                },
+                                error : function (e) {
+                                    console.log(e);
+                                    alert("连接失败");
+                                }
+                            })
+                        }
                     </script>
                 </div>
-                <div class="clearfix"> </div>
-                <div class="register-but">
-                    <input type="submit" value="submit" id="button">
-                    <div class="clearfix"> </div>
+            </section>
+            <section  class="sky-form">
+                <h4><span class="glyphicon glyphicon-minus" aria-hidden="true"></span>Price</h4>
+                <ul class="dropdown-menu1">
+                    <li>
+                        <a href="">
+                            <div id="slider-range"></div>
+                            <input type="text" id="amount" style="border: 0; font-weight: NORMAL;   font-family: 'Dosis-Regular';" />
+                        </a>
+                    </li>
+                </ul>
+            </section>
+            <!---->
+            <script type="text/javascript" src="js/jquery-ui.min.js"></script>
+            <link rel="stylesheet" type="text/css" href="css/jquery-ui.css">
+            <script type='text/javascript'>//<![CDATA[
+            minPrice = 0;
+            maxPrice = 300;
+            $(window).load(function(){
+                $("#slider-range").hover(function () {
 
+                }, function () {
+                    searchProduct();
+                })
+                $( "#slider-range" ).slider({
+                    range: true,
+                    min: 0,
+                    max: 300,
+                    values: [ 0, 100000 ],
+                    slide: function( event, ui ) {
+                        $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+                        minPrice = ui.values[0];
+                        maxPrice = ui.values[1];
+                    }
+                });
+                $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) + " - $" + $( "#slider-range" ).slider( "values", 1 ) );
+
+            });//]]>
+            </script>
+            <!---->
+            <section  class="sky-form">
+                <h4><span class="glyphicon glyphicon-minus" aria-hidden="true"></span>By Flavour</h4>
+                <div class="row row1 scroll-pane">
+                    <div class="col col-4">
+                        <label class="checkbox"><input type="checkbox" name="checkbox" checked=""><i></i>Vanilla</label>
+                    </div>
+                    <div class="col col-4">
+                        <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Chocolate</label>
+                        <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Butterscotch</label>
+                        <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Strawberry</label>
+                        <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Black Forest</label>
+                        <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Mixed Fruit</label>
+                        <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Honey</label>
+                    </div>
                 </div>
-            </div>
+            </section>
+            <section  class="sky-form">
+                <h4><span class="glyphicon glyphicon-minus" aria-hidden="true"></span>Weight</h4>
+                <div class="row row1 scroll-pane">
+                    <div class="col col-4">
+                        <label class="checkbox"><input type="checkbox" name="checkbox" checked=""><i></i>Half KG</label>
+                    </div>
+                    <div class="col col-4">
+                        <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>One KG</label>
+                        <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>TwO KG</label>
+                        <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>More</label>
+                    </div>
+                </div>
+            </section>
+
         </div>
+        <div class="clearfix"> </div>
     </div>
-</form>
-<!--//account-->
+</div>
+<!--//products-->
 <!--footer-->
 <div class="footer">
     <div class="container">
@@ -509,7 +524,7 @@
                     <li><a href="#">Support</a></li>
                     <li><a href="#">FAQ</a></li>
                     <li><a href="#">Warranty</a></li>
-                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="contact.jsp">Contact Us</a></li>
                 </ul>
             </div>
             <div class="col-md-3 footer-grid">
@@ -536,13 +551,13 @@
                 <li><a href="#"><img src="images/i2.png" alt=""/>Follow us on Twitter</a></li>
                 <li><a href="#"><img src="images/i3.png" alt=""/>Follow us on Google-plus</a></li>
                 <li><a href="#"><img src="images/i4.png" alt=""/>Follow us on Pinterest</a></li>
-            </ul>>
+            </ul>
         </div>
         <div class="clearfix"></div>
     </div>
 </div>
 </div>
-<!--footer-->
+<!--//footer-->
 <div class="footer-bottom">
     <div class="container">
         <p>Copyright &copy; 2015.Company name All rights reserved.More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a></p>
