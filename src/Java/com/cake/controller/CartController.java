@@ -17,13 +17,12 @@ public class CartController {
     @RequestMapping("/CartData")
     @ResponseBody
     public Msg getCartData(){
-//        cartService.addCartList();
         return Msg.success().add("cartList",cartService.getAllCartList());
     }
     @RequestMapping("/alterOrderNumberByID")
     @ResponseBody
     public Msg alterOrderNumberByIdController(@RequestParam("id") int id,@RequestParam("number") int number){
-//        orderService.
+
         cartService.alterNumberByID(id,number);
         return null;
     }

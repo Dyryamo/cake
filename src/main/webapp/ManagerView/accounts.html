@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Accounts Page - Dashboard Template</title>
+    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600">
+    <!-- https://fonts.google.com/specimen/Open+Sans -->
+    <link rel="stylesheet" href="css/fontawesome.min.css">
+    <!-- https://fontawesome.com/ -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <!-- https://getbootstrap.com/ -->
+    <link rel="stylesheet" href="css/tooplate.css">
+
+    <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+    <script>
+
+        $(function(){
+            add(1,2,"14189@qq.com",4,5,6);
+
+            function add(firstname,lastname,email,password,address,phone){
+                var $div=$("<div class='form-group' ></div>");
+                var $label=$(" <label for='firstname'>First Name</label>");
+                var $input=$("<input placeholder='Vulputate' id='firstname' name='firstname' value='"+firstname+"' type='text' class='form-control validate'>");
+                $label.appendTo($div);
+                $input.appendTo($div);
+                $div.appendTo($("#baba"));
+
+                var $div1=$("<div class='form-group' ></div>");
+                var $label1=$(" <label for='lastname'>Last Name</label>");
+                var $input1=$(" <input placeholder='Eleifend Nulla' id='lastname' name='lastname' type='text' value='"+lastname+"' class='form-control validate'>");
+
+                $label1.appendTo($div1);
+                $input1.appendTo($div1);
+                $div1.appendTo($("#baba"));
+
+                var $div2=$("<div class='form-group' ></div>");
+                var $label2=$(" <label for='email'>Account Email</label>");
+                var $input2=$(" <input placeholder='vulputate@eleifend.co' id='email' name='email' type='email' value='"+email+"' class='form-control validate'>");
+
+                $label2.appendTo($div2);
+                $input2.appendTo($div2);
+                $div2.appendTo($("#baba"));
+
+                var $div3=$("<div class='form-group' ></div>");
+                var $label3=$("<label for='password'>Password</label>");
+                var $input3=$("<input  id='password' name='password' type='text'  readonly='readonly' value='"+password+"' class='form-control validate'>");
+
+                $label3.appendTo($div3);
+                $input3.appendTo($div3);
+                $div3.appendTo($("#baba"));
+
+                var $div4=$("<div class='form-group' ></div>");
+                var $label4=$(" <label for='address'>Address</label>");
+                var $input4=$("<input placeholder='湖北省宜昌市' id='address' name='adress' type='text' value='"+address+"' class='form-control validate'>");
+
+                $label4.appendTo($div4);
+                $input4.appendTo($div4);
+                $div4.appendTo($("#baba"));
+
+                var $div5=$("<div class='form-group' ></div>");
+                var $label5=$("<label for='phone'>Phone</label>");
+                var $input5=$("<input placeholder='010-030-0440' id='phone' name='phone' type='tel' value='"+phone+"' class='form-control validate'>");
+
+                $label5.appendTo($div5);
+                $input5.appendTo($div5);
+                $div5.appendTo($("#baba"));
+
+
+            }
+
+            $("#del").click(function(){
+                $(".hr").remove();
+            });
+
+        });
+
+    </script>
+    <script>
+        $(function(){
+            ready("向阳","黎");
+
+            function ready(lastname,firstname){
+                var $li=$("<li class='hr tm-list-group-item'>");
+                var $p=$("<span>"+firstname+"&nbsp;"+lastname+"</span>");
+                $p.appendTo($li);
+                $li.appendTo($("#pgo"));
+            }
+
+        });
+    </script>
+
+    <script >
+        $(document).ready(
+            $.ajax({
+                url:"/getAllUser"
+            })
+        )
+    </script>
+</head>
+
+<body class="bg03">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <nav class="navbar navbar-expand-xl navbar-light bg-light">
+                    <a class="navbar-brand" href="products.html">
+                        <i class="fas fa-3x fa-tachometer-alt tm-site-icon"></i>
+                        <h1 class="tm-site-title mb-0">Dashboard</h1>
+                    </a>
+                    <button class="navbar-toggler ml-auto mr-0" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav mx-auto">
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="products.html">Products</a>
+                            </li>
+
+                            <li class="nav-item active">
+                                <a class="nav-link" href="#">Accounts</a>
+                            </li>
+                        </ul>
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link d-flex" href="login.html">
+                                    <i class="far fa-user mr-2 tm-logout-icon"></i>'
+                                    <span>Logout</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div>
+        <!-- row -->
+        <div class="row tm-content-row tm-mt-big">
+            <div class="tm-col tm-col-big">
+                <div class="bg-white tm-block">
+                    <div class="row">
+                        <div class="col-12">
+                            <h2 class="tm-block-title d-inline-block">Accounts</h2>
+                        </div>
+                    </div>
+                    <ol  class=" tm-list-group tm-list-group-alternate-color tm-list-group-pad-big" id="pgo">
+
+
+
+
+                    </ol>
+                </div>
+            </div>
+            <div class="tm-col tm-col-big">
+                <div class="bg-white tm-block">
+                    <div class="row">
+                        <div class="col-12">
+                            <h2 class="tm-block-title">Edit Account</h2>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <form action="" class="tm-signup-form" id="baba">
+
+
+                                <div class="row">
+                                    <div class="col-12 col-sm-4">
+                                        <button type="submit" class="btn btn-primary">Update</button>
+                                    </div>
+                                    <div class="col-12 col-sm-8 tm-btn-right">
+                                        <button type="submit" class="btn btn-danger" id="del">Delete Account</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <footer class="row tm-mt-small">
+
+        </footer>
+    </div>
+
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <!-- https://jquery.com/download/ -->
+    <script src="js/bootstrap.min.js"></script>
+    <!-- https://getbootstrap.com/ -->
+</body>
+
+</html>

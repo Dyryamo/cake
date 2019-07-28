@@ -13,10 +13,248 @@
 	<!-- js -->
 	<script src="js/jquery.min.js"></script>
 	<script type="text/javascript" src="js/bootstrap-3.1.1.min.js"></script>
-	<!-- //js -->
+    <script>
+        function getSelectList(){
+            var data = "";
+            var i = 0;
+            $(".checkBoxGroup").each(function (index,value) {
+                var a = $(value).parent().parent();
+                if($(ths).prop("checked")){
+                    console.log($(a).attr("myId"));
+                    data += $(a).attr("myId") + " ";
+                }
+
+            });
+            $.ajax(
+                {
+                    url:"/sendCartListAndCreateOrder",
+                    data: {"checkList":  data},
+                    type:"post",
+                    dataType:"json",
+                    success:function (data) {
+                        console.log(data);
+
+                        window.location.href='createOrder.html';
+                    }
+                }
+            )
+        }
+        $(document).ready(function(c) {
+
+            //获得后台数据
+            $.ajax(
+                {
+                    url:"/CartData",
+                    type:"post",
+                    dataType:"json",
+                    success:function (results) {
+                        addToView(results);
+                        console.log(results);
+
+                    }
+
+                }
+            );
+            function addToView(results){
+
+                var length = results.extend.cartList.length;
+                var products = results.extend.cartList;
+                console.log(length, products)
+                for(var i = 0 ; i < length ;i ++){
+                    ready(products[i].id,products[i].product.photopath,"",products[i].product.name,products[i].number,products[i].product.price,products[i].product.price * products[i].number);
+
+                }
+            }
+
+            // init();
+            setTimeout(function(){
+                init();
+            },3000)
+
+            function alterOrderNumber(id, number) {
+                $.ajax({
+                    url:"/alterOrderNumberByID",
+                    data:{"id":id,"number":number},
+                    type:"post",
+                    dataType:"json",
+                    success:function (data) {
+                        console.log(data)
+                    }
+
+                })
+            }
+
+            function init() {
+                $(".jia").click(function(){
+
+                    var n=$(this).siblings("span");
+                    var num=$(this).siblings("span").text();
+                    var numb=parseInt(num);
+                    if(numb!=0){
+                        n.text(numb+1);
+                    }
+                    var id = $(this).parent().parent().attr("id");
+                    console.log(id);
+                    alterOrderNumber(id,numb + 1);
+
+                });
+                $(".jian").click(function(){
+                    var k=$(this).parent().parent().parent().parent().parent().parent();
+                    var p=$(this).siblings("span");
+                    var num=$(this).siblings("span").text();
+                    var numb=parseInt(num);
+                    if(numb==1){
+                        k.remove();
+                    }
+                    p.text(numb-1);
+
+                    var id = $(this).parent().parent().attr("id");
+                    console.log(id);
+                    alterOrderNumber(id,numb - 1);
+
+                });
+                $(".close1").click( function(c){
+                    $(this).fadeOut("slow", function(c){
+                        var n=$(this).parent().parent().parent();
+                        n.remove();
+                    });
+                });
+                $("#btn").click(function(){
+                    var flag=$("#btn").prop("checked");
+                    if(flag==false){
+                        result=0;
+                        $(".c1").prop("checked",flag);
+                    }else {
+                        $(".c1").prop("checked", flag);
+                    }
+                });
+                $(".c1").click(function(){
+                    var flag=$(this).prop("checked");
+                    if(flag==false){
+                        $("#btn").prop("checked",false);
+                    }
+                    var h=true;
+                    $(".c1").each(function(i,s){
+                        var str=$(s).prop("checked");
+                        if(str==false){
+                            h=false;
+                        }
+                    });
+                    if(h==true){
+                        $("#btn").prop("checked",true);
+                    }
+                });
+
+            }
 
 
-	<!-- cart -->
+        });
+
+        function ready(id,png,test,cakename,number,price,sums,discount) {
+            console.log(png);
+            var tr = $("<tr></tr>")
+            tr.attr("myId",id);
+            var input =$("<td class='col-md-1'><input type='checkbox'  class='checkBoxGroup' ></td>");
+            tr.append(input)
+
+            var td = $("<td class='col-md-12'></td>");
+
+            var $div = $("<div class='cart-header' > ");//父类
+            var $div1 = $("<div class='close1'>");
+            var $div6 = $("<div class='cart-sec simpleCart_shelfItem'>")//第二大
+            var $div2 = $("<div class='cart-item cyc'> <img src=\"http://120.79.249.199/"+ png +"\" class='img-responsive' alt='图片丢失'> </div>");
+
+            var $div7 = $("<div class='cart-item-info'>");//第三大
+
+            var $h3 = $("<h3><a href='#'>" + cakename + "</a></h3>");
+            var table = $("<table class=\"table table-hover table-responsive \"></table>")
+            var trPrice = $("<tr></tr>");
+            var trNumber = $("<tr></tr>");
+            var trDiscount= $("<tr></tr>");
+            var trSum = $("<tr></tr>");
+
+            var tdPrice1 = $("<td><p style='font-size: 15px;'>price</p></td>");
+            var tdPriceValue = $("<td><p >"+price+"</p></td>")
+            trPrice.append(tdPrice1).append(tdPriceValue);
+
+            var tdNumber = $("<td><p >amount</p></td>");
+            var tdNumberValue= $("<td><p  >"+number+"</p></td>")
+            trNumber.append(tdNumber).append(tdNumberValue)
+
+            var tdDiscount = $("<td><p >discount</p></td>");
+            var tdDiscountValue = $("<td><p >"+discount+"</></td>")
+            trDiscount.append(tdDiscount).append(tdDiscountValue)
+
+            var tdSum = $("<td><h3  style='color:sandybrown'>总价</h3></td>");
+            var tdSumValue = $("<td><h3  style='color:sandybrown'>"+sums+"</h3></td>")
+            trSum.append(tdSum).append(tdSumValue)
+            table.append(trPrice).append(trNumber).append(trDiscount).append(trSum);
+
+            //
+            // var $ul = $("<ul class='qty'></ul>");
+            // //
+            // var $li = $("<li></li>");
+            //
+            // // $li.append(h3)
+            // $li.attr("id",id);
+            // $li.appendTo($ul);
+
+            // var $li1 = $("<li><p style='font-size: 15px;'>FREE delivery</p></li>");
+            // $li1.appendTo($ul);
+            //
+            //
+
+            // var h3 = $("<p  style='color:sandybrown'> 数量 &nbsp;:</p>");
+                //记录详情订单页的id
+            // var buttonGroup = $("<div class='input-group '>" +
+            //                         "<span class='input-group-addon'>@</span>" +
+            //                         "<span class='input-group-btn'>" +
+            //                             "<button  class=' btn btn-default'><span class='glyphicon glyphicon-plus'></span></button>" +
+            //                         "</span>" +
+            //
+            //                             "<input  type='text' class='form-control col-md-1 text-center jia' value = "+ number+" readonly='readonly' /> " +
+            //                         "<span class='input-group-btn'>" +
+            //                             "<button  class='btn btn-default'><span class='glyphicon glyphicon-plus'></span></button>" +
+            //                         "</span>" +
+            //                     "</div>");
+            //
+            //
+            var $div3 = $("<div class='delivery' style='font-size: 15px;'>");
+            $div3.append(table);
+            // var $p = $("<h5 id='price'>price:"+price+"</h5>");
+            // var $discount = $("<p>discount&nbsp;:&nbsp;&nbsp;&nbsp;</p><p id='price'>"+discount+"</p>");
+            //     // var $span = $("<span>Delivered in 1-1:30 hours</span>");
+            // var $div4 = $("<div class='clearfix'></div>");
+            // var $count=$("<div class='sum col-md-3 pull-right' <span>Total:&nbsp;&nbsp"+sums+"</span></div>");
+            //
+            // // buttonGroup.appendTo($div3);
+            // $p.appendTo($div3);
+            // $discount.appendTo($div3)
+            // // $span.appendTo($div3);
+            // $div4.appendTo($div3);
+            // $count.appendTo($div3);
+            $h3.appendTo($div7);
+            // $ul.appendTo($div7);
+            $div3.appendTo($div7);
+            // //
+            // var $div5 = $("<div class=clearfix></div>");
+            $div2.appendTo($div6);
+            $div7.appendTo($div6);
+            // // $div5.appendTo($div6);
+            // // //$a.appendTo($div6);
+            $div6.appendTo($div);
+            $div1.appendTo($div);
+            $div.appendTo(td);
+            tr.append(td);
+            tr.appendTo($("#CartTBody"));
+
+        }
+
+
+    </script>
+
+
+    <!-- cart -->
 	<script src="js/simpleCart.min.js"> </script>
 	<!-- cart -->
 </head>
@@ -282,7 +520,7 @@
 <!--//header-->
 <!--cart-items-->
 <div class="cart-items">
-	<div class="container" id="baba">
+	<div class="container">
 		<div class="row" id = "myShoppingCart">
 
 
@@ -302,209 +540,39 @@
 
 		<div class="row" style="margin-bottom: 30px">
 
-			<td><div class="col-md-2 pull-right"><span>全选&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><input type="checkbox" value="selectALL" id="btn" /></div></td>
+            <table class="col-md-12">
+                <thead>
+                    <tr>
 
+                        <td>
+                            <input type="checkbox" value="selectALL" id="btn" />
+                        </td>
+                        <td>&nbsp;</td>
+                    </tr>
+                </thead>
+                <tbody id="CartTBody">
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td>
+                            &nbsp;
+                        </td>
+                        <td>
+                            <div class="pull-right input-group">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">选择地址 <span class="caret"></span></button>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">1</a></li>
+                                    <li><a href="#">2</a></li>
+                                    <li><a href="#">3</a></li>
+                                    <li><a href="#">4</a></li>
+                                </ul>
+                                <button class="btn btn-primary" onclick="getSelectList()">提交</button>
+                            </div>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
 		</div>
-		<script>
-            function getSelectList(){
-				console.log("ss")
-				var data = "";
-				var i = 0;
-                $(".checkBoxGroup").each(function (index,value) {
-
-                    var a = $(value).parent();
-
-                    if($(this).prop("checked")){
-                        console.log($(a).attr("id"));
-                        data += $(a).attr("id") + " ";
-                    }
-                });
-
-				console.log(data)
-				$.ajax(
-						{
-							url:"/sendCartListAndCreateOrder",
-							data: {"checkList":  data},
-							type:"post",
-							dataType:"json",
-							success:function (data) {
-								console.log(data);
-							}
-						}
-				)
-            }
-			$(document).ready(function(c) {
-
-				//获得后台数据
-				$.ajax(
-						{
-							url:"/CartData",
-							type:"post",
-							dataType:"json",
-							success:function (results) {
-								addToView(results);
-								console.log(results);
-
-							}
-
-						}
-				);
-				function addToView(results){
-					// console.log("")
-					// alert("hello")
-					var length = results.extend.cartList.length;
-					var products = results.extend.cartList;
-					console.log(length, products)
-					for(var i = 0 ; i < length ;i ++){
-						ready(products[i].id,products[i].product.photopath,"",products[i].product.name,products[i].number,products[i].product.price,products[i].product.price * products[i].number);
-
-					}
-				}
-
-				// init();
-				setTimeout(function(){
-					// alert("hello");
-					init();
-				},3000)
-
-				function alterOrderNumber(id, number) {
-					$.ajax({
-						url:"/alterOrderNumberByID",
-						data:{"id":id,"number":number},
-						type:"post",
-						dataType:"json",
-						success:function (data) {
-							console.log(data)
-						}
-
-					})
-				}
-
-				function init() {
-					$(".jia").click(function(){
-
-						var n=$(this).siblings("span");
-						var num=$(this).siblings("span").text();
-						var numb=parseInt(num);
-						if(numb!=0){
-							n.text(numb+1);
-						}
-						var id = $(this).parent().parent().attr("id");
-						console.log(id);
-						alterOrderNumber(id,numb + 1);
-
-					});
-					$(".jian").click(function(){
-						var k=$(this).parent().parent().parent().parent().parent().parent();
-						var p=$(this).siblings("span");
-						var num=$(this).siblings("span").text();
-						var numb=parseInt(num);
-						if(numb==1){
-							k.remove();
-						}
-						p.text(numb-1);
-
-						var id = $(this).parent().parent().attr("id");
-						console.log(id);
-						alterOrderNumber(id,numb - 1);
-
-					});
-					$(".close1").click( function(c){
-						$(this).fadeOut("slow", function(c){
-							var n=$(this).parent();
-							n.remove();
-						});
-					});
-					$("#btn").click(function(){
-						var flag=$("#btn").prop("checked");
-						if(flag==false){
-							result=0;
-							$(".c1").prop("checked",flag);
-						}else {
-							$(".c1").prop("checked", flag);
-						}
-					});
-					$(".c1").click(function(){
-						var flag=$(this).prop("checked");
-						if(flag==false){
-							$("#btn").prop("checked",false);
-						}
-						var h=true;
-						$(".c1").each(function(i,s){
-							var str=$(s).prop("checked");
-							if(str==false){
-								h=false;
-							}
-						});
-						if(h==true){
-							$("#btn").prop("checked",true);
-						}
-					});
-
-				}
-
-
-			});
-
-			function ready(id,png,test,cakename,number,price,sums) {
-				console.log(png);
-				var $div = $("<div class='cart-header'> ");//父类
-
-				// var $div = $("<div class='cart-header' style='background-color: #d0e9c6'> ");//父类
-				var $div1 = $("<div class='close1'>");
-
-				var $div6 = $("<div class='cart-sec simpleCart_shelfItem'>")//第二大
-				var $div2 = $("<div class='cart-item cyc'> <img src=\"http://120.79.249.199/"+ png +"\" class='img-responsive' alt='图片丢失'> </div>");
-
-				var $div7 = $("<div class='cart-item-info'>");//第三大
-				var $h3 = $("<h3><a href='#'>" + cakename + "</a></h3>");
-
-				var $ul = $("<ul class='qty'>");
-
-				var $li = $("<div><h4><li> cakenumber: </li></h4>" +
-						"<div class='col-md-2 pull-right'  style='border-radius: 5px;border-width: 1px;' >" +
-						"<button class='jia' style='background-color: #d0e9c6'>+</button><span class='number'>&nbsp;&nbsp;"+number+"&nbsp;&nbsp;</span>" +
-						"<button class='jian' style='background-color: #d0e9c6;border-left: 0;'>-</button></div></div><br/>");
-				//记录详情订单页的id
-
-				$li.attr("id",id);
-				var $li1 = $("<li><p style='margin-top: 10px;font-size: 15px;'>FREE delivery</p></li>");
-				$li.appendTo($ul);
-				$li1.appendTo($ul);
-
-				// var $input =$("<input type='checkbox' style='margin-left: 830px' class='c1' >");
-
-				var $input =$("<input type='checkbox'  class='c1 col-md-1 pull-right checkBoxGroup' >");
-
-				var $div3 = $("<div class='delivery' style='font-size: 15px;'>");
-				var $p = $("<p>Service Charges : </p><p id='price'>"+price+"</p>");
-				var $span = $("<span>Delivered in 1-1:30 hours</span>");
-				var $div4 = $("<div class='clearfix'></div>");
-				var $count=$("<div class='sum col-md-3 pull-right' >Total<span>:&nbsp;&nbsp"+sums+"$</span></div>");
-				// var $a=$("<div class='col-md-3 pull-right'><a href='#'>结算</a></div>");
-				$p.appendTo($div3);
-				$span.appendTo($div3);
-				$div4.appendTo($div3);
-				$count.appendTo($div3);
-				// $a.appendTo($div3);
-				$h3.appendTo($div7);
-				$ul.appendTo($div7);
-				$input.appendTo($li);
-				$div3.appendTo($div7);
-
-
-				var $div5 = $("<div class=clearfix></div>");
-				$div2.appendTo($div6);
-				$div7.appendTo($div6);
-				$div5.appendTo($div6);
-				//$a.appendTo($div6);
-				$div6.appendTo($div);
-				$div1.appendTo($div);
-				$div.appendTo($("#baba"));
-			}
-
-
-		</script>
 
 
 	</div>
@@ -562,7 +630,7 @@
 			<div class="clearfix"></div>
 		</div>
 	</div>
-    <button onclick="getSelectList()">test</button>
+    <!--<button onclick="getSelectList()">test</button>-->
 </div>
 <!--footer-->
 <div class="footer-bottom">
@@ -570,5 +638,7 @@
 		<p>Copyright &copy; 2015.Company name All rights reserved.More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a></p>
 	</div>
 </div>
+
+
 </body>
 </html>

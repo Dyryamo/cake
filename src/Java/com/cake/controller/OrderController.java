@@ -1,7 +1,7 @@
 package com.cake.controller;
 
-import com.cake.bean.Order;
-import com.cake.bean.User;
+import com.cake.bean.*;
+import com.cake.dao.AssociateOrderAndProductMapper;
 import com.cake.service.OrderService;
 import com.cake.utils.Msg;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +27,9 @@ public class OrderController {
     OrderService orderService;
 
 
+    @Autowired
+    AssociateOrderAndProductMapper associateOrderAndProductMapper;
+
     @RequestMapping("/createOrderController")
     @ResponseBody
     public Msg createOrderController(@RequestBody Map<String,String> Obj, HttpSession session){
@@ -35,10 +38,11 @@ public class OrderController {
         *   测试json 数据
         * */
         Msg msg = Msg.success();
+
         for(String key : Obj.keySet()) {
             System.out.println(key + " " + Obj.get(key));
-
         }
+
         User user = (User) session.getAttribute("user");
         //  用户尚未登录
         if(session.getAttribute("user") == null){
@@ -55,12 +59,24 @@ public class OrderController {
 
         System.out.println("hello");
 
-        User user = (User) session.getAttribute("user");
+        User user = new User();
+        user.setId(1);
         System.out.println(user);
         List<Order> orders = orderService.getOrderByUserID(user.getId());
 
-        System.out.println(orders);
-        return Msg.success();
+        for(Order order : orders){
+            AssociateOrderAndProductExample associateOrderAndProductExample = new AssociateOrderAndProductExample();
+            AssociateOrderAndProductExample.Criteria criteria = associateOrderAndProductExample.createCriteria();
+            criteria.andProductidEqualTo(order.getId());
+            List<AssociateOrderAndProduct> result = associateOrderAndProductMapper.selectByExample(associateOrderAndProductExample);
+            List<Product> products = new ArrayList<>();
+            for(AssociateOrderAndProduct associateOrderAndProduct : result){
+                products.add(associateOrderAndProduct.getProduct());
+            }
+            order.setProductsEntity(products);
+        }
+        System.out.println(orders.get(orders.size() - 1));
+        return Msg.success().add("order",orders.get(orders.size() - 1));
     }
 
 
@@ -71,13 +87,10 @@ public class OrderController {
         checkList.split(" ");
         User user = (User) session.getAttribute("user");
         Map<String,String >obj = new HashMap<>();
-//        obj.put("1","1");
         orderService.createOrder(user,1,obj);
         for(String a : checkList.split(" ")){
-//            System.out.println(a);
-//            orderList.add(Integer.parseInt(a));
+
             obj.put(a,a);
-//            orderService.createOrder(user,1,obj);
         }
         orderService.createOrder(user,1,obj);
         return Msg.success();

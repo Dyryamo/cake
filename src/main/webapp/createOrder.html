@@ -141,20 +141,41 @@
 		});
 		function getOrderInfomation() {
 
-			tab(1,2,3,4);
-
+			// tab(1,2,3,4);
+			// function tab(fname,lname,phone,address){
 			$.ajax({
 				url:"/getOrderInformation",
 				type:"post",
 				dataType: "json",
 				success:function (data) {
 					console.log(data);
+
+                    tab("test","test", data.extend.order.addr.phonenumber,data.extend.order.addr.address);
+
+					var length = data.extend.order.productsEntity.length;
+
+					var products = data.extend.order.productsEntity;
+					// console.log(data.extend).;
+					// console.log(products);
+					// console.log(products[0].id)
+					// console.log(length, products)
+					for(var i = 0 ; i < length ;i ++){
+						// png,test,cakename,number,price,sums,discount
+						ready(products[i].photopath,
+                                "",
+                            products[i].name,
+                            products[i].number,
+                            // data.extend.order.number
+                            products[i].price,
+                            products[i].price * products[i].discount * 0.01 * products[i].number ,
+                            products[i].discount * 0.1);
+					}
 				}
 
 
 			})
 		}
-		function ready(png,test,cakename,number,price,sums) {
+		function ready(png,test,cakename,number,price,sums,discount) {
 			console.log(png);
 
 			var $div = $("<div class='cart-header'> ");//父类
@@ -164,14 +185,19 @@
 			var $div2 = $("<div class='cart-item cyc'> <img src=\"http://120.79.249.199/"+ png +"\" class='img-responsive' alt='图片丢失'> </div>");
 
 			var $div7 = $("<div class='cart-item-info'>");//第三大
-			var $h3 = $("<h3><a href='#'>" + cakename + "</a></h3>");
+			var $h3 = $("<h3><a href='#'> 产品名：" + cakename + "</a></h3>");
 
 			var $ul = $("<ul class='qty'>");
-			var $li = $("<div><h4><li> cakenumber: </li></h4>" +
-						"<div class='col-md-2 pull-right'  style='border-radius: 5px;border-width: 1px;' >" +
-						"<h3><span class='number'>&nbsp;&nbsp;"+number+"&nbsp;&nbsp;</span></h3>" +
+			var $li = $("<div>" +
+						"<h4><li>"+
+						"<h3><span> 数量: &nbsp;&nbsp;"+number+"&nbsp;&nbsp;</span></h3>" +
+                        "<h3><span> 单价: &nbsp;&nbsp;"+price+"&nbsp;&nbsp;</span></h3>" +
+                        "<h3><span> 折扣: &nbsp;&nbsp;"+discount+"&nbsp;折&nbsp;&nbsp;</span></h3>" +
+
+                "</li></h4>" +
 						"</div></div><br/>");
-			var $li1 = $("<li><p style='margin-top: 10px;font-size: 15px;'>FREE delivery</p></li>");
+
+			var $li1 = $("<li><p style='font-size: 15px;'>FREE delivery</p></li>");
 			$li.appendTo($ul);
 			$li1.appendTo($ul);
 
@@ -180,7 +206,8 @@
 			var $p = $("<p>Service Charges : </p><p id='price'>"+price+"</p>");
 			var $span = $("<span>Delivered in 1-1:30 hours</span>");
 			var $div4 = $("<div class='clearfix'></div>");
-			var $count=$("<h3><div class='sum col-md-4 pull-right'>Total:<span>"+sums+"$</span></div></h3>");
+
+			var $count=$("<h3><div class='sum col-md-3 pull-right'><span> Total:"+sums+"$</span></div></h3>");
 
 			$p.appendTo($div3);
 			$span.appendTo($div3);
@@ -483,26 +510,34 @@
 								<h2 class="modal-title" id="myModalLabel">My Order</h2>
 							</div>
 							<div class="modal-body"  >
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <table class="table table-hover">
+                                            <tbody id="tfather">
+                                            <tr>
+                                                <td class="active"><h3  style='color:sandybrown'>User Infomation</h3></td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <img src="images/g1.jpg" class="img-responsive">
+                                    </div>
+                                </div>
 
-
-								<dir class="col-md-6">
-
-									<table class="table table-hover">
-										<tbody id="tfather">
-											<tr>
-												<td class="active"><h3  style='color:sandybrown'>User Infomation</h3></td>
-											</tr>
-
-
-										</tbody>
-									</table>
-								</dir>
-								<div class="col-md-6">
-									<img src="images/g1.jpg" class="img-responsive">
-								</div>
-								<div class="row"></div>
+								<div class="row" style="margin-top: 30px;">
+                                    <div class='col-md-12' style="border-radius: 5px;border-width: 1px; color: #000000" >
+                                    <h3  style="color:sandybrown" class="active">OrderInfo</h3>
+                                </div>
 								<div id="baba" class="row">
+									<!--<div class="col-md-6">-->
 
+										<!--<table class="table table-hover">-->
+											<!--<tbody >-->
+
+											<!--</tbody>-->
+										<!--</table>-->
+									<!--</div>-->
 								</div>
 
 							</div>
