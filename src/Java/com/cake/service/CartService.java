@@ -11,4 +11,5 @@ public interface CartService {
     public void addCartList(Cart cartList);
     public void deleteCartList(Cart cartList);
     public Cart getCartById(int id);
+    public void alterNumberByID(int id,int number);
 }

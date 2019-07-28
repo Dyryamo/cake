@@ -1,5 +1,6 @@
-import com.cake.bean.Product;
-import com.cake.bean.User;
+import com.cake.bean.*;
+import com.cake.dao.AssociateOrderAndProductMapper;
+import com.cake.dao.OrderMapper;
 import com.cake.dao.UserMapper;
 import com.cake.service.AdministratorService;
 import com.cake.service.Impl.OrderServiceImpl;
@@ -11,6 +12,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -22,6 +24,10 @@ public class TestOrderService {
 
     @Autowired
     UserMapper userMapper;
+    @Autowired
+    OrderMapper orderMapper;
+    @Autowired
+    AssociateOrderAndProductMapper associateOrderAndProductMapper;
     @Test
     public void TestOrderService(){
         System.out.println(orderService.getLastId());
@@ -32,5 +38,31 @@ public class TestOrderService {
         Map<String,String >obj = new HashMap<>();
         obj.put("1","1");
         orderService.createOrder(user,1,obj);
+    }
+    @Test
+    public void TestGetAssociate(){
+//        OrderExample orderExample = new OrderExample();
+//        OrderExample.Criteria criteria = orderExample.createCriteria();
+//        criteria.andUseridEqualTo(id);
+//        List<Order> result =  orderMapper.selectByExample(orderExample);
+
+//        CartExample cartExample = new CartExample();
+//        CartExample.Criteria criteria = cartExample.createCriteria();
+//        criteria.andIdEqualTo(id);
+//        criteria.
+//
+//        Cart cart = cartMapper.selectByPrimaryKey(id);
+//        cart.setNumber(number);
+//        cartMapper.updateByPrimaryKey(cart);
+//        orderMapper.(1);
+
+        AssociateOrderAndProductExample associateOrderAndProductExample = new AssociateOrderAndProductExample();
+        AssociateOrderAndProductExample.Criteria criteria = associateOrderAndProductExample.createCriteria();
+        criteria.andProductidEqualTo(1);
+        List<AssociateOrderAndProduct> result = associateOrderAndProductMapper.selectByExample(associateOrderAndProductExample);
+
+        for (AssociateOrderAndProduct associateOrderAndProduct  :result){
+            System.out.println(associateOrderAndProduct);
+        }
     }
 }

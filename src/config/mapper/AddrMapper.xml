@@ -6,6 +6,7 @@
     <result column="address" jdbcType="VARCHAR" property="address" />
     <result column="phoneNumber" jdbcType="INTEGER" property="phonenumber" />
     <result column="userID" jdbcType="INTEGER" property="userid" />
+
   </resultMap>
 
   <sql id="Example_Where_Clause">

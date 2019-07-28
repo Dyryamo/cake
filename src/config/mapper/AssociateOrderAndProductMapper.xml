@@ -5,6 +5,10 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="productId" jdbcType="INTEGER" property="productid" />
     <result column="orderId" jdbcType="INTEGER" property="orderid" />
+
+    <association property="product" javaType="com.cake.bean.Product" column="productId" select="com.cake.dao.ProductMapper.selectByPrimaryKey">
+
+    </association>
   </resultMap>
 
   <select id="selectLastID" resultType="java.lang.Integer">

@@ -45,4 +45,8 @@ public class TestCart {
         cart.setId(2);
         cartService.deleteCartList(cart);
     }
+    @Test
+    public  void TestAlterNumberByCart(){
+        cartService.alterNumberByID(1,100);
+    }
 }

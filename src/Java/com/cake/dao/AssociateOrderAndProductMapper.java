@@ -3,6 +3,8 @@ package com.cake.dao;
 import com.cake.bean.AssociateOrderAndProduct;
 import com.cake.bean.AssociateOrderAndProductExample;
 import java.util.List;
+
+import com.cake.bean.Product;
 import org.apache.ibatis.annotations.Param;
 
 public interface AssociateOrderAndProductMapper {
@@ -29,4 +31,6 @@ public interface AssociateOrderAndProductMapper {
     int updateByPrimaryKey(AssociateOrderAndProduct record);
 
     int selectLastID();
+
+//    List<Product> selectByProducts(int productID);
 }

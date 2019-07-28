@@ -6,6 +6,14 @@
     <result column="userID" jdbcType="INTEGER" property="userid" />
     <result column="products" jdbcType="INTEGER" property="products" />
     <result column="address" jdbcType="INTEGER" property="address" />
+
+    <association property="addr" javaType="com.cake.bean.Addr" column="address" select="com.cake.dao.AddrMapper.selectByPrimaryKey">
+
+    </association>
+
+    <association property="user" javaType="com.cake.bean.User" column="userID" select="com.cake.dao.UserMapper.selectByPrimaryKey">
+
+    </association>
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
