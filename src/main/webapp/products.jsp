@@ -88,7 +88,7 @@
         function addToCart(productId){
             <%
                 if (user == null)
-                    out.print("window.location.href = \"index.jsp\"");
+                    out.print("window.location.href = \"account.jsp\"");
                 else {
                     out.print("var number = $(\"input[produtcId=\\\"\" + productId +\"\\\"]\").val();\n" +
 "            var sendData = {\n" +
