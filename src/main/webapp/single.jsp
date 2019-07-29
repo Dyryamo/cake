@@ -342,14 +342,14 @@
             <div class="col-md-4 single-grid">
                 <div class="flexslider">
                     <ul class="slides">
-                        <li data-thumb="http://120.79.249.199/<%=product.getPhotopath()%>">
-                            <div class="thumb-image"> <img src="http://120.79.249.199/<%=product.getPhotopath()%>" data-imagezoom="true" class="img-responsive"> </div>
+                        <li data-thumb="http://120.79.249.199/product/1<%=product.getPhotopath()%>">
+                            <div class="thumb-image"> <img src="http://120.79.249.199/product/1<%=product.getPhotopath()%>" data-imagezoom="true" class="img-responsive"> </div>
                         </li>
-                        <li data-thumb="http://120.79.249.199/<%=product.getPhotopath()%>">
-                            <div class="thumb-image"> <img src="http://120.79.249.199/<%=product.getPhotopath()%>" data-imagezoom="true" class="img-responsive"> </div>
+                        <li data-thumb="http://120.79.249.199/product/2<%=product.getPhotopath()%>">
+                            <div class="thumb-image"> <img src="http://120.79.249.199/product/2<%=product.getPhotopath()%>" data-imagezoom="true" class="img-responsive"> </div>
                         </li>
-                        <li data-thumb="http://120.79.249.199/<%=product.getPhotopath()%>">
-                            <div class="thumb-image"> <img src="http://120.79.249.199/<%=product.getPhotopath()%>" data-imagezoom="true" class="img-responsive"> </div>
+                        <li data-thumb="http://120.79.249.199/product/3<%=product.getPhotopath()%>">
+                            <div class="thumb-image"> <img src="http://120.79.249.199/product/3<%=product.getPhotopath()%>" data-imagezoom="true" class="img-responsive"> </div>
                         </li>
                     </ul>
                 </div>
