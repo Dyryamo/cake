@@ -15,6 +15,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
 public class CartController {
     @Autowired
@@ -22,9 +24,13 @@ public class CartController {
 
     @RequestMapping("/CartData")
     @ResponseBody
-    public Msg getCartData(){
+    public Msg getCartData(HttpSession session){
 //        cartService.addCartList();
-        return Msg.success().add("cartList",cartService.getAllCartList());
+        User user = (User) session.getAttribute("user");
+        if( user == null){
+            return Msg.success().add("loginStatus",false);
+        }
+        return Msg.success().add("loginStatus",true).add("cartList",cartService.getAllCartList(user.getId()));
     }
 
     @RequestMapping("/addCar")

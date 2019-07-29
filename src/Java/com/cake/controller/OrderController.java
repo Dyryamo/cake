@@ -63,9 +63,12 @@ public class OrderController {
 
         System.out.println("hello");
 
-        User user = new User();
-        user.setId(1);
+        User user =(User) session.getAttribute("user");
+//        user.setId(1);
         System.out.println(user);
+        if(user == null ){
+            return  Msg.success().add("loginStatus",false);
+        }
         List<Order> orders = orderService.getOrderByUserID(user.getId());
 
         for(Order order : orders){
