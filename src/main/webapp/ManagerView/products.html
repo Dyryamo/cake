@@ -102,15 +102,22 @@
                     console.log(length);
                     // console.log(Items[])
                     for(var i = 0; i < length ;i ++){
-                        AddItem(Items[i].id,Items[i].name,Items[i].price,Items[i].number,Items[i].discount * 0.1);
+                        // alert("tes")
+                         AddItem(Items[i].id,Items[i].name,Items[i].price,Items[i].number,Items[i].discount * 0.1);
                     }
+                    $(function () {
+                        $('.tm-product-name').on('click', function () {
+                            // alert("sdf");
+                            window.location.href = "edit-product.html";
+                        });
+                    })
                 }
             })
         }
         $(document).ready(function(){
             // Item("first",100,200,50);
             getItem();
-            // Item("first",100,210,50);
+            Item("first",100,210,50);
             // Item("first",100,220,50);
             // Item("first",100,230,50);
             // Item("first",100,240,50);
@@ -120,7 +127,7 @@
 
             // DeleteItem(0);
 
-            // AddItem(0,"second",2,5,1);
+            AddItem(0,"second",2,5,1);
 
         });
        $(function(){
@@ -307,11 +314,7 @@
     <script src="js/bootstrap.min.js"></script>
     <!-- https://getbootstrap.com/ -->
     <script>
-        $(function () {
-            $('.tm-product-name').on('click', function () {
-                window.location.href = "edit-product.html";
-            });
-        })
+
     </script>
 </body>
 

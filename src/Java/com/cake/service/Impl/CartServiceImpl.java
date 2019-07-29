@@ -17,9 +17,11 @@ public class CartServiceImpl implements CartService {
     CartMapper cartMapper;
 
     @Override
-    public List<Cart> getAllCartList() {
-//        System.out.println(cartMapper);
-        List<Cart> cartList =  cartMapper.selectByExample(null);
+    public List<Cart> getAllCartList(int id) {
+        CartExample cartExample = new CartExample();
+        CartExample.Criteria criteria = cartExample.createCriteria();
+        criteria.andIdEqualTo(id);
+        List<Cart> cartList =  cartMapper.selectByExample(cartExample);
         System.out.println(cartList);
         return cartList;
     }

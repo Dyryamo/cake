@@ -23,7 +23,7 @@ public class TestCart {
 
     @Test
     public void TestGetAllCartList(){
-        List<Cart> list = cartService.getAllCartList();
+        List<Cart> list = cartService.getAllCartList(1);
         System.out.println(list);
     }
     @Test
