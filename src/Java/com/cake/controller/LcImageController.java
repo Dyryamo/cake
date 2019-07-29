@@ -49,6 +49,7 @@ public class LcImageController {
                 return;
             SendMail sendMail = new SendMail();
             String mailCode = sendMail.getText();
+            System.out.println("mail code = " + mailCode);
             sendMail.SendYourMail(mail);
             session.setAttribute("mailVcode", mailCode);
         } catch (MessagingException e) {

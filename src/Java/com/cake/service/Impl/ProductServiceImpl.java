@@ -22,14 +22,13 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Product> getRandomProduct(int num) {
-        int allCount = lcMapper.allProductCount();
-        List<Product> products = new ArrayList<>();
-        for (int i=0; i<num; i++){
-            int id = (int)(1+Math.random()*(allCount-1+1));
-            Product product = getTheProductById(id);
-            products.add(product);
+        List<Product> products = productMapper.selectByExample(null);
+        List<Product> allproduct = new ArrayList<>();
+        for (int i=0; i<num ; i++){
+            int id = (int)(Math.random()*(products.size()-1+1));
+            allproduct.add(products.get(id));
         }
-        return products;
+        return allproduct;
     }
 
     @Override

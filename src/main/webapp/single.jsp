@@ -301,6 +301,33 @@
                     <p><a href="javascript:;" class="simpleCart_empty">Empty cart</a></p>
                     <div class="clearfix"> </div>
                 </div>
+
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="exampleModalLabel" style="color: #F07818">find your password</h4>
+                            </div>
+                            <div class="modal-body">
+                                <form id="findpassword">
+                                    <div class="form-group">
+                                        <label for="recipient-name" class="control-label" style="color: #F07818">email:</label>
+                                        <input type="text" class="form-control" id="recipient-name">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="message-text" class="control-label" style="color: #F07818">CAPTCHA:</label>
+                                        <input type="text" class="form-control" id="message-text" ></textarea>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" >Checkout</button>
+                                <button type="button" class="btn btn-primary">Send message</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="clearfix"> </div>
         </div>
