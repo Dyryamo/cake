@@ -381,7 +381,7 @@
             <div class="header-right cart">
                 <a href="#"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></a>
                 <div class="cart-box">
-                    <h4><a href="checkout.jsp">
+                    <h4><a href="checkout.html">
                         <span class="simpleCart_total"> $0.00 </span> (<span id="simpleCart_quantity" class="simpleCart_quantity"> 0 </span>)
                     </a></h4>
                     <p><a href="javascript:;" class="simpleCart_empty">Empty cart</a></p>
