@@ -14,6 +14,12 @@
     <association property="user" javaType="com.cake.bean.User" column="userID" select="com.cake.dao.UserMapper.selectByPrimaryKey">
 
     </association>
+
+    <!--<collection property="productsEntity" ofType="com.cake.bean.AssociateOrderAndProduct" column="products" select="com.cake.dao.AssociateOrderAndProductMapper.selectByProducts">-->
+
+    <!--</collection>-->
+
+
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>

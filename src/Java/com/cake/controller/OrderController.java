@@ -2,6 +2,7 @@ package com.cake.controller;
 
 import com.cake.bean.*;
 import com.cake.dao.AssociateOrderAndProductMapper;
+import com.cake.dao.ZMapper;
 import com.cake.service.OrderService;
 import com.cake.utils.Msg;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,9 @@ public class OrderController {
 
     @Autowired
     AssociateOrderAndProductMapper associateOrderAndProductMapper;
+
+    @Autowired
+    ZMapper zMapper;
 
     @RequestMapping("/createOrderController")
     @ResponseBody
@@ -75,8 +79,16 @@ public class OrderController {
             }
             order.setProductsEntity(products);
         }
-        System.out.println(orders.get(orders.size() - 1));
-        return Msg.success().add("order",orders.get(orders.size() - 1));
+        Order order = orders.get(orders.size() - 1);
+//        order.setProductsEntity(null);
+        System.out.println(user);
+        List<OrderTmp> z = zMapper.selectOrderTmp(user.getId());
+        System.out.println(z);
+        for(OrderTmp orderTmp : z){
+            order.getProductsEntity().add(orderTmp.getProduct());
+        }
+        System.out.println(order);
+        return Msg.success().add("order",order);
     }
 
 

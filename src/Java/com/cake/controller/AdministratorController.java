@@ -2,6 +2,7 @@ package com.cake.controller;
 
 import com.cake.bean.Product;
 import com.cake.service.AdministratorService;
+import com.cake.service.UserService;
 import com.cake.utils.Msg;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,6 +23,8 @@ public class AdministratorController {
     @Autowired
     AdministratorService administratorService;
 
+    @Autowired
+    UserService userService;
 
 
     @RequestMapping("/verifyAdministratorPassword")
@@ -95,4 +98,19 @@ public class AdministratorController {
         administratorService.addProduct(product);
         return Msg.success().add("status",true);
     }
+
+    @RequestMapping("getAllUserInfo")
+    @ResponseBody
+    public Msg getAllUserInfo(){
+        System.out.println("getUserInfo");
+        return Msg.success().add("UserInfo",userService.allUserInfo());
+    }
+
+    @RequestMapping("getUserByID")
+    @ResponseBody
+    public Msg getUserByID(Integer id){
+        System.out.println("getUserByID");
+        return Msg.success().add("UserInfo",userService.selectUserById(id));
+    }
+
 }

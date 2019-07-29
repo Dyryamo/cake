@@ -18,85 +18,114 @@
     <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
     <script>
 
-        $(function(){
-            add(1,2,"14189@qq.com",4,5,6);
 
-            function add(firstname,lastname,email,password,address,phone){
-                var $div=$("<div class='form-group' ></div>");
-                var $label=$(" <label for='firstname'>First Name</label>");
-                var $input=$("<input placeholder='Vulputate' id='firstname' name='firstname' value='"+firstname+"' type='text' class='form-control validate'>");
-                $label.appendTo($div);
-                $input.appendTo($div);
-                $div.appendTo($("#baba"));
+        function add(firstname,lastname,email,password,address,phone){
+            var $div=$("<div class='form-group' ></div>");
+            var $label=$(" <label for='firstname'>First Name</label>");
+            var $input=$("<input placeholder='Vulputate' id='firstname' name='firstname' value='"+firstname+"' type='text' class='form-control validate'>");
+            $label.appendTo($div);
+            $input.appendTo($div);
+            $div.appendTo($("#baba"));
 
-                var $div1=$("<div class='form-group' ></div>");
-                var $label1=$(" <label for='lastname'>Last Name</label>");
-                var $input1=$(" <input placeholder='Eleifend Nulla' id='lastname' name='lastname' type='text' value='"+lastname+"' class='form-control validate'>");
+            var $div1=$("<div class='form-group' ></div>");
+            var $label1=$(" <label for='lastname'>Last Name</label>");
+            var $input1=$(" <input placeholder='Eleifend Nulla' id='lastname' name='lastname' type='text' value='"+lastname+"' class='form-control validate'>");
 
-                $label1.appendTo($div1);
-                $input1.appendTo($div1);
-                $div1.appendTo($("#baba"));
+            $label1.appendTo($div1);
+            $input1.appendTo($div1);
+            $div1.appendTo($("#baba"));
 
-                var $div2=$("<div class='form-group' ></div>");
-                var $label2=$(" <label for='email'>Account Email</label>");
-                var $input2=$(" <input placeholder='vulputate@eleifend.co' id='email' name='email' type='email' value='"+email+"' class='form-control validate'>");
+            var $div2=$("<div class='form-group' ></div>");
+            var $label2=$(" <label for='email'>Account Email</label>");
+            var $input2=$(" <input placeholder='vulputate@eleifend.co' id='email' name='email' type='email' value='"+email+"' class='form-control validate'>");
 
-                $label2.appendTo($div2);
-                $input2.appendTo($div2);
-                $div2.appendTo($("#baba"));
+            $label2.appendTo($div2);
+            $input2.appendTo($div2);
+            $div2.appendTo($("#baba"));
 
-                var $div3=$("<div class='form-group' ></div>");
-                var $label3=$("<label for='password'>Password</label>");
-                var $input3=$("<input  id='password' name='password' type='text'  readonly='readonly' value='"+password+"' class='form-control validate'>");
+            var $div3=$("<div class='form-group' ></div>");
+            var $label3=$("<label for='password'>Password</label>");
+            var $input3=$("<input  id='password' name='password' type='text'  readonly='readonly' value='"+password+"' class='form-control validate'>");
 
-                $label3.appendTo($div3);
-                $input3.appendTo($div3);
-                $div3.appendTo($("#baba"));
+            $label3.appendTo($div3);
+            $input3.appendTo($div3);
+            $div3.appendTo($("#baba"));
 
-                var $div4=$("<div class='form-group' ></div>");
-                var $label4=$(" <label for='address'>Address</label>");
-                var $input4=$("<input placeholder='湖北省宜昌市' id='address' name='adress' type='text' value='"+address+"' class='form-control validate'>");
+            var $div4=$("<div class='form-group' ></div>");
+            var $label4=$(" <label for='address'>Address</label>");
+            var $input4=$("<input placeholder='湖北省宜昌市' id='address' name='adress' type='text' value='"+address+"' class='form-control validate'>");
 
-                $label4.appendTo($div4);
-                $input4.appendTo($div4);
-                $div4.appendTo($("#baba"));
+            $label4.appendTo($div4);
+            $input4.appendTo($div4);
+            $div4.appendTo($("#baba"));
 
-                var $div5=$("<div class='form-group' ></div>");
-                var $label5=$("<label for='phone'>Phone</label>");
-                var $input5=$("<input placeholder='010-030-0440' id='phone' name='phone' type='tel' value='"+phone+"' class='form-control validate'>");
+            var $div5=$("<div class='form-group' ></div>");
+            var $label5=$("<label for='phone'>Phone</label>");
+            var $input5=$("<input placeholder='010-030-0440' id='phone' name='phone' type='tel' value='"+phone+"' class='form-control validate'>");
 
-                $label5.appendTo($div5);
-                $input5.appendTo($div5);
-                $div5.appendTo($("#baba"));
+            $label5.appendTo($div5);
+            $input5.appendTo($div5);
+            $div5.appendTo($("#baba"));
 
 
-            }
+        }
 
-            $("#del").click(function(){
-                $(".hr").remove();
-            });
-
+        $("#del").click(function(){
+            $(".hr").remove();
         });
+
 
     </script>
     <script>
-        $(function(){
-            ready("向阳","黎");
+        function showDetail(id){
+            $.ajax({
+                url:"/getUserByID",
+                type:"post",
+                data:{"id":id},
+                dataType:"Json",
+                success:function (data) {
 
-            function ready(lastname,firstname){
-                var $li=$("<li class='hr tm-list-group-item'>");
-                var $p=$("<span>"+firstname+"&nbsp;"+lastname+"</span>");
-                $p.appendTo($li);
-                $li.appendTo($("#pgo"));
-            }
+                    console.log(data);
+                    var UserInfos = data.extend.UserInfo;
+                    // console
+                    if($("#baba").children(":first") != null){
+                        $("#baba").children(":first").remove();
+                    }
+                    
+                    add(UserInfos.firstname,UserInfos.lastname,UserInfos.email,UserInfos.password,UserInfos.address,UserInfos.phonenumber)
+                }
+            })
+        }
 
-        });
+        function ready(myID,lastname,firstname){
+            var $li=$("<li class='hr tm-list-group-item'>");
+            var $p=$("<span>"+firstname+"&nbsp;"+lastname+"</span>");
+            $li.click(function () {
+                console.log($(this).attr("myID"))
+                showDetail($(this).attr("myID"));
+            })
+            $li.attr("myID",myID);
+            $p.appendTo($li);
+            $li.appendTo($("#pgo"));
+        }
     </script>
 
     <script >
         $(document).ready(
+
             $.ajax({
-                url:"/getAllUser"
+                url:"/getAllUserInfo",
+                type:"post",
+                dataType:"json",
+                success:function (data) {
+                    console.log(data)
+                    var length = data.extend.UserInfo.length;
+                    var UserInfos = data.extend.UserInfo;
+                    for(var i = 0 ; i < length ;i ++)
+                        ready(UserInfos[i].id,UserInfos[i].lastname,UserInfos[i].firstname);
+
+                }
+
             })
         )
     </script>
