@@ -10,13 +10,14 @@
     String pathUrl = "http://120.79.249.199/";
     String path = request.getContextPath();
     String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+    User user = (User) session.getAttribute("user");
 %>
 <html>
 <head>
     <title>Products</title>
     <!-- Custom Theme files -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Type " content="text/html; charset=utf-8" />
     <meta name="keywords" content="" />
     <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
     <!-- //Custom Theme files -->
@@ -59,8 +60,8 @@
             var $div6 = $("<div class='ofr'></div>");
             var $p = $("<p class=\"pric1\"><del>$"+pricepre+"</del></p>");
             var $p1 = $("<p class=\"disc\">["+discount+"% off]</p>");
-            var input =$("<input type=\"text\" class=\"item_quantity\" value=\"1\" />");
-            var input1 =$("<input type=\"button\" class=\"item_add items\" value=\"Add\">");
+            var input =$("<input type=\"text\" class=\"item_quantity\" produtcId=\"" + productId + "\" value=\"0\" />");
+            var input1 =$("<input type=\"button\" class=\"item_add items\" onclick='addToCart(\"" + productId + "\")' value=\"Add\">");
             var $div7 = $("<div class=\"clearfix\"> </div>");
 
             $p.appendTo($div6);
@@ -84,6 +85,35 @@
         }
     </script>
     <script>
+        function addToCart(productId){
+            <%
+                if (user == null)
+                    out.print("window.location.href = \"account.jsp\"");
+                else {
+                    out.print("var number = $(\"input[produtcId=\\\"\" + productId +\"\\\"]\").val();\n" +
+"            var sendData = {\n" +
+"                \"userid\" : \"" + user.getId() + "\",\n" +
+            "                \"productid\" : productId,\n" +
+            "                \"number\" : number\n" +
+            "            };\n" +
+            "            console.log(sendData);\n" +
+            "            $.ajax({\n" +
+            "                url : \"/addCar\",\n" +
+            "                data : sendData,\n" +
+            "                dataType: \"JSON\",\n" +
+            "                success : function (result) {\n" +
+            "                    alert(\"添加成功\");\n" +
+            "                },\n" +
+            "                error : function (e) {\n" +
+            "                    alert(\"连接失败\");\n" +
+            "                }\n" +
+            "            })");
+                }
+            %>
+
+
+        }
+
         function addElement(result){
             $("#classparent").empty();
             console.log(result.extend.products);
@@ -337,7 +367,6 @@
                                     "        <p>New User ? <a class=\"sign\" href=\"account.jsp\">Sign Up</a> <span><a href=\"\" data-toggle=\"modal\" data-target=\"#exampleModal\" data-whatever=\"@mdo\">Forgot your password?</a></span></p>\n" +
                                     "    </form>\n");
                         } else {
-                            User user = (User) session.getAttribute("user");
                             out.print("<form action=\"/user/loginOut\" method=\"post\" id=\"loginForm\">\n" +
                                     "        <fieldset id=\"body\">\n" +
                                     "            <fieldset>\n" +

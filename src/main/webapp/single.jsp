@@ -8,6 +8,8 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
+
+    User user = (User) session.getAttribute("user");
     String pathUrl = "http://120.79.249.199/";
     String path = request.getContextPath();
     String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -278,7 +280,6 @@
                                     "        <p>New User ? <a class=\"sign\" href=\"account.jsp\">Sign Up</a> <span><a href=\"\" data-toggle=\"modal\" data-target=\"#exampleModal\" data-whatever=\"@mdo\">Forgot your password?</a></span></p>\n" +
                                     "    </form>\n");
                         } else {
-                            User user = (User) session.getAttribute("user");
                             out.print("<form action=\"/user/loginOut\" method=\"post\" id=\"loginForm\">\n" +
                                     "        <fieldset id=\"body\">\n" +
                                     "            <fieldset>\n" +
@@ -546,27 +547,25 @@
         <%
             if (session.getAttribute("user") == null)
                 out.print("window.location.href=\"account.jsp\"");
-            User user = (User) session.getAttribute("user");
+            else
+                out.print("$.ajax({\n" +
+"            url : \"/addCar\",\n" +
+"            data : {\n" +
+"                \"userid\" : \"" + user.getId() + "\",\n" +
+        "                \"productid\" : \"" +  product.getId() + "\",\n" +
+        "                \"number\" : $(\"#quantity\").val()\n" +
+        "            },\n" +
+        "            dataType: \"JSON\",\n" +
+        "            success : function (result) {\n" +
+        "                alert(\"添加成功\");\n" +
+        "            },\n" +
+        "            error : function (e) {\n" +
+        "                alert(\"连接失败\");\n" +
+        "            }\n" +
+        "        })");
         %>
-        console.log("<%= user.getId()%>");
-        console.log("<%= product.getId()%>");
-        console.log($("#quantity").val());
 
-        $.ajax({
-            url : "/addCar",
-            data : {
-                "userid" : "<%= user.getId()%>",
-                "productid" : "<%= product.getId()%>",
-                "number" : $("#quantity").val()
-            },
-            dataType: "JSON",
-            success : function (result) {
-                alert("添加成功");
-            },
-            error : function (e) {
-                alert("连接失败");
-            }
-        })
+
     }
 </script>
 </body>
