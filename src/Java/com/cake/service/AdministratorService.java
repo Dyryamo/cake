@@ -18,5 +18,6 @@ public interface AdministratorService {
     // 对订单进行管理
     public void deleteOrder(Order order);
     public boolean verifyAdminstrator(String username,String password);
-
+    public Product getProductByID(int id);
+    public void updateByProduct(Product product);
 }

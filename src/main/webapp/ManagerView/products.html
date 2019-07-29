@@ -108,7 +108,18 @@
                     $(function () {
                         $('.tm-product-name').on('click', function () {
                             // alert("sdf");
+                            console.log($(this).parent().attr("id"));
+                            $.ajax({
+                                url:"/saveEditCurrentID",
+                                type:"post",
+                                data:{"EditUserID":$(this).parent().attr("id")},
+                                dataType:"Json",
+                                success :function (data) {
+                                    console.log(data);
+                                }
+                            })
                             window.location.href = "edit-product.html";
+
                         });
                     })
                 }

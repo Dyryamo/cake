@@ -67,7 +67,7 @@
                     </div>
                     <div class="row mt-4 tm-edit-product-row">
                         <div class="col-xl-7 col-lg-7 col-md-12">
-                            <form action="" class="tm-edit-product-form">
+                            <form  class="tm-edit-product-form" id = "ProductInfo">
                                 <div class="input-group mb-3">
                                     <label for="name" class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">Product
                                         Name
@@ -75,8 +75,8 @@
                                     <input placeholder="Product name" value="<%name%>" id="name" name="name" type="text" class="form-control validate col-xl-9 col-lg-8 col-md-8 col-sm-7">
                                 </div>
                                 <div class="input-group mb-3">
-                                    <label for="description" class="col-xl-4 col-lg-4 col-md-4 col-sm-5 mb-2">Introduce</label>
-                                    <textarea class="form-control validate col-xl-9 col-lg-8 col-md-8 col-sm-7"   rows="3" placeholder="Product Description" required>Fusce finibus dui tellus, at viverra dui dignissim hendrerit. Sed a varius nulla. Donec auctor consectetur nulla.</textarea>
+                                    <label  class="col-xl-4 col-lg-4 col-md-4 col-sm-5 mb-2">Introduce</label>
+                                    <textarea class="form-control validate col-xl-9 col-lg-8 col-md-8 col-sm-7"   rows="3" id = "Introduce" placeholder="Product Description" required>Fusce finibus dui tellus, at viverra dui dignissim hendrerit. Sed a varius nulla. Donec auctor consectetur nulla.</textarea>
                                 </div>
                                 <div class="input-group mb-3">
                                     <label for="category" class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label" >Category</label>
@@ -103,18 +103,20 @@
                                     <label for="stock" class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">Units In
                                         Stock
                                     </label>
-                                    <input placeholder="Stock" value="<%number%>" id="stock" name="number" type="text" class="form-control validate col-xl-9 col-lg-8 col-md-7 col-sm-7">
+                                    <input placeholder="Stock" value="<%number%>" id="stock" name="stock" type="text" class="form-control validate col-xl-9 col-lg-8 col-md-7 col-sm-7">
                                 </div>
                                 <div class="input-group mb-3">
                                     <div class="ml-auto col-xl-8 col-lg-8 col-md-8 col-sm-7 pl-0">
-                                        <button type="submit" class="btn btn-primary">Update
+                                        <button type="button" class="btn btn-primary" onclick="addProduct()">Update
                                         </button>
                                     </div>
                                 </div>
                             </form>
                         </div>
-                        <div class="col-xl-4 col-lg-4 col-md-12 mx-auto mb-4">
-                            <img src="<%photopath%>" alt="Profile Image" class="img-fluid mx-auto d-block">
+
+
+                        <div class="col-xl-4 col-lg-4 col-md-12 mx-auto mb-4" id = "photoUpLoad">
+                            <img src="#" alt="Profile Image" id="fileImg" class="img-fluid mx-auto d-block">
                             <div class="custom-file mt-3 mb-3">
                                 <input id="fileInput" type="file" style="display:none;" />
                                 <input type="button" class="btn btn-primary d-block mx-auto" value="Upload ..." onclick="document.getElementById('fileInput').click();"
@@ -137,9 +139,55 @@
     <script src="js/bootstrap.min.js"></script>
     <!-- https://getbootstrap.com/ -->
     <script>
+
+        function addProduct() {
+            console.log($("#ProductInfo").serialize());
+            console.log($("#fileInput"));
+
+            var formData = new FormData(document.querySelector("#ProductInfo"));
+            formData.append('myFile', $('#fileInput')[0].files[0]);  //添加图片信息的参数
+            formData.append("testKey","keyValue")
+            // alert("test");
+            $.ajax({
+                url:"/alterProductInfo",
+                type:"post",
+                cache: false,
+                processData: false, // 告诉jQuery不要去处理发送的数据
+                contentType: false, // 告诉jQuery不要去设置Content-Type请求头
+                data: formData,
+                success:function (data) {
+                    console.log(data);
+                    $("#photoUpLoad").empty()
+                    var img = $("<img class='img-responsive' style='width: 300px; width: 300px;' />").attr("src","http://120.79.249.199/" + data.extend.photoPath);
+                    $("#photoUpLoad").append(img);
+
+                }
+            })
+        }
         $(function () {
             $('#expire_date').datepicker();
         });
+        $.ajax({
+            url:"/getEditCurrentInfo",
+            type:"post",
+            dataType:"json",
+            success:function (data) {
+                console.log(data);
+                var product = data.extend.UserInfo;
+                loadEditProduct(product.name,"",product.type,product.price,product.discount,product.number,product.photopath);
+            }
+        })
+        // loadEditProduct()
+        function loadEditProduct(name,Introduce,Category,price,discount,stock,png){
+            // alert("test");
+            $("#name").val(name);
+            $("#Introduce").val(Introduce);
+            $("#category").val(Category);
+            $("#price").val(price);
+            $("#discount").val(discount);
+            $("#stock").val(stock);
+            $("#fileImg").attr("src","http://120.79.249.199/" + png)
+        }
     </script>
 </body>
 

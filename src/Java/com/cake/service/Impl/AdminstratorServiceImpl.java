@@ -1,9 +1,6 @@
 package com.cake.service.Impl;
 
-import com.cake.bean.Order;
-import com.cake.bean.Product;
-import com.cake.bean.User;
-import com.cake.bean.UserExample;
+import com.cake.bean.*;
 import com.cake.dao.ProductMapper;
 import com.cake.dao.UserMapper;
 import com.cake.service.AdministratorService;
@@ -53,5 +50,21 @@ public class AdminstratorServiceImpl implements AdministratorService
 //            return false;
 //        return true;
         return true;
+    }
+
+    @Override
+    public Product getProductByID(int id) {
+        return productMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public void updateByProduct(Product product) {
+//        CartExample cartExample = new CartExample();
+//        CartExample.Criteria criteria = cartExample.createCriteria();
+//        criteria.andIdEqualTo(id);
+//        ProductExample productExample = new ProductExample();
+//        ProductExample.Criteria criteria = productExample.createCriteria();
+//        criteria.and
+        productMapper.updateByPrimaryKey(product);
     }
 }

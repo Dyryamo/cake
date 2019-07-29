@@ -27,6 +27,7 @@ public class CartController {
     public Msg getCartData(HttpSession session){
 //        cartService.addCartList();
         User user = (User) session.getAttribute("user");
+//        System.out.println(u);
         if( user == null){
             return Msg.success().add("loginStatus",false);
         }

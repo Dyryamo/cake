@@ -86,13 +86,12 @@
                 success:function (data) {
 
                     console.log(data);
+
                     var UserInfos = data.extend.UserInfo;
-                    // console
-                    if($("#baba").children(":first") != null){
-                        $("#baba").children(":first").remove();
-                    }
+
+                    $("#baba").empty()
                     
-                    add(UserInfos.firstname,UserInfos.lastname,UserInfos.email,UserInfos.password,UserInfos.address,UserInfos.phonenumber)
+                    add(UserInfos.firstname,UserInfos.lastname,UserInfos.email,UserInfos.password,"暂无地址","暂无电话")
                 }
             })
         }

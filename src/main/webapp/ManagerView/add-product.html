@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <!-- https://getbootstrap.com/ -->
     <link rel="stylesheet" href="css/tooplate.css">
+
     <script>
         function addProduct() {
             console.log($("#ProductInfo").serialize());
@@ -34,6 +35,10 @@
                 data: formData,
                 success:function (data) {
                     console.log(data);
+                    $("#photoUpLoad").empty()
+                    var img = $("<img class='img-responsive' style='width: 300px; width: 300px;' />").attr("src","http://120.79.249.199/" + data.extend.photoPath);
+                    $("#photoUpLoad").append(img);
+
                 }
             })
         }
@@ -135,13 +140,14 @@
                             </form>
                         </div>
                         <div class="col-xl-4 col-lg-4 col-md-12 mx-auto mb-4">
-                            <form>
+                            <form id = "photoUpLoad" >
+
                                 <div class="tm-product-img-dummy mx-auto">
                                     <i class="fas fa-5x fa-cloud-upload-alt" onclick="document.getElementById('fileInput').click();"></i>
                                 </div>
 
-                                <div class="custom-file mt-3 mb-3">
-                                    <input id="fileInput" name="picture" class="form-control" type="file" style="display:none;" />
+                                <div class="custom-file mt-3 mb-3" >
+                                    <input id="fileInput"  name="picture" class="form-control" type="file" style="display:none;" />
                                     <input type="button"  class="btn btn-primary d-block mx-auto" value="Upload ..." onclick="document.getElementById('fileInput').click();"
                                     />
                                 </div>
