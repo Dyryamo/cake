@@ -1,0 +1,55 @@
+　           * {
+                margin: 0;
+                padding: 0;
+                border: 0;
+                outline: 0
+            }
+            
+            ul, li {
+                list-style: none;
+            }
+
+            .btn-numbox {
+                overflow: hidden;
+                margin-top: 10px;
+            }
+            
+            .btn-numbox li {
+                float: left;
+            }
+            
+            .btn-numbox li .number,
+            .kucun {
+                display: inline-block;
+                font-size: 13px;
+                color: #808080;
+                vertical-align: sub;
+            }
+            
+            .btn-numbox .count {
+                overflow: hidden;
+                /*margin: 10 10 10 10;*/
+            }
+            
+            .btn-numbox .count .num-jian, .input-num, .num-jia {
+                display: inline-block;
+                width: 28px;
+                height: 28px;
+                line-height: 28px;
+                text-align: center;
+                font-size: 18px;
+                color: #999;
+                cursor: pointer;
+                border: 1px solid #e6e6e6;
+            }
+             
+            .btn-numbox .count .input-num {
+                width: 40px;
+                height: 28px;
+                color: #333;
+                border-left: 0;
+                border-right: 0;
+            }
+            .myBox{
+                -moz-box-shadow:-10px 8px 16px #303303; -webkit-box-shadow:-10px 8px 16px #303303; box-shadow:-10px 8px 16px #303303;
+            }

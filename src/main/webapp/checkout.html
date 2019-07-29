@@ -13,13 +13,55 @@
 	<!-- js -->
 	<script src="js/jquery.min.js"></script>
 	<script type="text/javascript" src="js/bootstrap-3.1.1.min.js"></script>
-    <script>
+
+	<link rel="stylesheet" type="text/css" href="css/myJiaJIan.css"/>
+
+	<script>
+
+        function alterOrderNumber(id, number) {
+            $.ajax({
+                url:"/alterOrderNumberByID",
+                data:{"id":id,"number":number},
+                type:"post",
+                dataType:"json",
+                success:function (data) {
+                    console.log(data)
+                }
+
+            })
+        }
+        function jiajianinit( id ){
+            // alert("test")
+            var num_jia = document.getElementById("num-jia" + id);
+            var num_jian = document.getElementById("num-jian" + id);
+            var input_num = document.getElementById("input-num" + id);
+
+            num_jia.onclick = function() {
+                // alert("test2");
+                input_num.value = parseInt(input_num.value) + 1;
+
+                alterOrderNumber(id,parseInt(input_num.value) + 1);
+            }
+
+            num_jian.onclick = function() {
+
+                if(input_num.value <= 0) {
+                    input_num.value = 0;
+                } else {
+
+                    input_num.value = parseInt(input_num.value) - 1;
+                }
+
+                alterOrderNumber(id,parseInt(input_num.value) - 1);
+            }
+        }
+        // init();
         function getSelectList(){
             var data = "";
             var i = 0;
             $(".checkBoxGroup").each(function (index,value) {
                 var a = $(value).parent().parent();
-                if($(ths).prop("checked")){
+                if($(this).prop("checked")){
                     console.log($(a).attr("myId"));
                     data += $(a).attr("myId") + " ";
                 }
@@ -39,6 +81,7 @@
                 }
             )
         }
+
         $(document).ready(function(c) {
 
             //获得后台数据
@@ -56,14 +99,17 @@
                 }
             );
             function addToView(results){
-
+                // alert("test3")
                 var length = results.extend.cartList.length;
                 var products = results.extend.cartList;
                 console.log(length, products)
                 for(var i = 0 ; i < length ;i ++){
-                    ready(products[i].id,products[i].product.photopath,"",products[i].product.name,products[i].number,products[i].product.price,products[i].product.price * products[i].number);
+                    // alert("123")
+                    ready(products[i].id,products[i].product.photopath,"",products[i].product.name,products[i].number,products[i].product.price,products[i].product.price * products[i].number,products[i].product.discount * 0.1);
 
+                    jiajianinit(products[i].id);
                 }
+
             }
 
             // init();
@@ -71,18 +117,7 @@
                 init();
             },3000)
 
-            function alterOrderNumber(id, number) {
-                $.ajax({
-                    url:"/alterOrderNumberByID",
-                    data:{"id":id,"number":number},
-                    type:"post",
-                    dataType:"json",
-                    success:function (data) {
-                        console.log(data)
-                    }
 
-                })
-            }
 
             function init() {
                 $(".jia").click(function(){
@@ -177,15 +212,49 @@
             var tdPriceValue = $("<td><p >"+price+"</p></td>")
             trPrice.append(tdPrice1).append(tdPriceValue);
 
+
+			var row = $("<div class='row'></div>");
+			var col2 = $("<div></div>")
+			var jiajian = $("<ul class=\"btn-numbox\">" +
+							// "<li><span class=\"number\">数量</span></li>" +
+							"<li>" +
+							"<ul class=\"count\">" +
+							"<li><span id=\"num-jian"+id+"\" class=\"num-jian\">-</span></li>" +
+							"<li><input type=\"text\" class=\"input-num\" id=\"input-num"+id+"\" value=\""+number+"\" /></li>" +
+							"<li><span id=\"num-jia"+id+"\" class=\"num-jia\">+</span></li>" +
+							"</ul>" +
+							"</li>" +
+							// "<li><span class=\"kucun\">（库存:54）</span></li>" +
+							"</ul>")
+			col2.append(jiajian);
+			// // container.append(row);
+			col2.appendTo(row)
+			// var buttonGroup = $("<div class='input-group'>" +
+			// 		"<span class='input-group-btn'>" +
+			// 		"<input type='button' class='btn btn-default'>+</input>" +
+			// 		"</span>" +
+			//
+			// 		// "<input  type='text' class='form-control col-md-2 text-center' value= '1'  /> " +
+			// 		"<span class='input-group-btn'>" +
+			// 		"<input type='button' class='btn btn-default'>-</input>" +
+			// 		"</span>" +
+			// 		"</div>");
+			// buttonGroup.appendTo(col2);
+			// tdNumberValue.children()
+
             var tdNumber = $("<td><p >amount</p></td>");
-            var tdNumberValue= $("<td><p  >"+number+"</p></td>")
+            var tdNumberValue= $("<td></td>");
+			jiajian.appendTo(row);
+
+            tdNumberValue.append(row);
+            // $("#mbody").append(container)
             trNumber.append(tdNumber).append(tdNumberValue)
 
             var tdDiscount = $("<td><p >discount</p></td>");
             var tdDiscountValue = $("<td><p >"+discount+"</></td>")
             trDiscount.append(tdDiscount).append(tdDiscountValue)
 
-            var tdSum = $("<td><h3  style='color:sandybrown'>总价</h3></td>");
+            var tdSum = $("<td><h3  style='color:sandybrown'>Total</h3></td>");
             var tdSumValue = $("<td><h3  style='color:sandybrown'>"+sums+"</h3></td>")
             trSum.append(tdSum).append(tdSumValue)
             table.append(trPrice).append(trNumber).append(trDiscount).append(trSum);
@@ -258,7 +327,7 @@
 	<script src="js/simpleCart.min.js"> </script>
 	<!-- cart -->
 </head>
-<body>
+<body id = "mbody">
 <!--header-->
 <div class="header">
 	<div class="container">
@@ -530,7 +599,7 @@
 			$(function(){
 				res(1);
 				function res(numb){
-					$div = $('<div><h2>My Shopping Cart</h2><span></span> </div>');
+					$div = $('<div><h2>My Shopping Cart<span>'+numb+'</span> </h2></div>');
 				}
 				$div.appendTo($("#myShoppingCart"));
 			})
@@ -540,7 +609,7 @@
 
 		<div class="row" style="margin-bottom: 30px">
 
-            <table class="col-md-12">
+            <table class="col-md-12 table table-hover">
                 <thead>
                     <tr>
 
@@ -560,7 +629,7 @@
                         <td>
                             <div class="pull-right input-group">
                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">选择地址 <span class="caret"></span></button>
-                                <ul class="dropdown-menu">
+                                <ul class="dropdown-menu" id = "myAddress">
                                     <li><a href="#">1</a></li>
                                     <li><a href="#">2</a></li>
                                     <li><a href="#">3</a></li>

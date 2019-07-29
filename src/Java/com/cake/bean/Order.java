@@ -19,11 +19,23 @@ public class Order {
     }
 
     private User user;
-
+//    private  List<AssociateOrderAndProduct> productsEntity;
+//
+//    public List<AssociateOrderAndProduct> getProductsEntity() {
+//        return productsEntity;
+//    }
+//
+//    public void setProductsEntity(List<AssociateOrderAndProduct> productsEntity) {
+//        this.productsEntity = productsEntity;
+//    }
     private List<Product> productsEntity;
 
     public List<Product> getProductsEntity() {
         return productsEntity;
+    }
+
+    public User getUser() {
+        return user;
     }
 
     public void setProductsEntity(List<Product> productsEntity) {

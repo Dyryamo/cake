@@ -1,7 +1,5 @@
 import com.cake.bean.*;
-import com.cake.dao.AssociateOrderAndProductMapper;
-import com.cake.dao.OrderMapper;
-import com.cake.dao.UserMapper;
+import com.cake.dao.*;
 import com.cake.service.AdministratorService;
 import com.cake.service.Impl.OrderServiceImpl;
 import com.cake.service.OrderService;
@@ -27,6 +25,11 @@ public class TestOrderService {
     @Autowired
     OrderMapper orderMapper;
     @Autowired
+    LcMapper lcMapper;
+
+    @Autowired
+    ZMapper mapper;
+    @Autowired
     AssociateOrderAndProductMapper associateOrderAndProductMapper;
     @Test
     public void TestOrderService(){
@@ -38,6 +41,15 @@ public class TestOrderService {
         Map<String,String >obj = new HashMap<>();
         obj.put("1","1");
         orderService.createOrder(user,1,obj);
+    }
+    @Test
+    public void TestGetOrder(){
+        List<Order> li = orderService.getOrderByUserID(1);
+        System.out.println(li);
+    }
+    @Test
+    public void TestMyMapper(){
+        System.out.println(mapper.selectOrderTmp(1));
     }
     @Test
     public void TestGetAssociate(){

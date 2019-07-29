@@ -11,7 +11,7 @@ public class User {
 
     private String lastname;
 
-
+//    private Addr
     public Integer getId() {
         return id;
     }

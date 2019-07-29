@@ -10,7 +10,9 @@
 
     </association>
   </resultMap>
-
+  <!--<select id="selectByProducts" parameterType="java.lang.Integer" resultMap="BaseResultMap">-->
+      <!--select * from AssociateOrderAndProductMapper where cake.orderId = ${id};-->
+  <!--</select>-->
   <select id="selectLastID" resultType="java.lang.Integer">
       select max(id) from AssociateOrderAndProduct;
   </select>
