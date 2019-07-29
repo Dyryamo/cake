@@ -69,8 +69,22 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void forgetPassword(String mail) {
+        UserExample userExample = new UserExample();
+        UserExample.Criteria criteria = userExample.createCriteria();
+        criteria.andEmailEqualTo(mail);
+        List<User> users = userMapper.selectByExample(userExample);
+        for (User user : users){
+            user.setPassword("123456");
+            userMapper.updateByPrimaryKey(user);
+        }
+    }
+
+    @Override
     public int userMaxId() {
         int id = lcMapper.lastUserId();
         return id;
     }
+
+
 }

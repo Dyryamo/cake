@@ -11,4 +11,12 @@
         select max(id) as id from cake.User;
     </select>
 
+    <select id="limitProduct" parameterType="int" resultType="com.cake.bean.Product" >
+        SELECT * FROM cake.Product limit #{start},#{num};
+    </select>
+
+    <select id="allProductCount" parameterType="int" resultType="java.lang.Integer">
+        select count(id) as id  FROM cake.Product;
+    </select>
+
 </mapper>

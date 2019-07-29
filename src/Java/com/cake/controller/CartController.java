@@ -1,12 +1,18 @@
 package com.cake.controller;
 
+import com.cake.bean.Cart;
+import com.cake.bean.Product;
+import com.cake.bean.User;
 import com.cake.service.CartService;
 import com.cake.service.Impl.CartServiceImpl;
+import com.cake.service.ProductService;
+import com.cake.service.UserService;
 import com.cake.utils.Msg;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
@@ -17,14 +23,25 @@ public class CartController {
     @RequestMapping("/CartData")
     @ResponseBody
     public Msg getCartData(){
+//        cartService.addCartList();
         return Msg.success().add("cartList",cartService.getAllCartList());
     }
-    @RequestMapping("/alterOrderNumberByID")
+
+    @RequestMapping("/addCar")
     @ResponseBody
-    public Msg alterOrderNumberByIdController(@RequestParam("id") int id,@RequestParam("number") int number){
-
-        cartService.alterNumberByID(id,number);
-        return null;
+    public String addCar(Cart cart){
+        System.out.println(cart.toString());
+        int userId = cart.getUserid();
+        int productId = cart.getProductid();
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContext.xml");
+        ProductService productService = (ProductService) applicationContext.getBean("productServiceImpl");
+        UserService userService = (UserService) applicationContext.getBean("userServiceImpl");
+        CartService cartService = (CartService) applicationContext.getBean("cartServiceImpl");
+        Product product = productService.getTheProductById(productId);
+        User user = userService.selectUserById(userId);
+        cart.setProduct(product);
+        cart.setUser(user);
+        cartService.addCartList(cart);
+        return "{\"success\":\"success\"}";
     }
-
 }

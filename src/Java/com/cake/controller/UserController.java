@@ -8,6 +8,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -55,8 +56,9 @@ public class UserController {
             session.setAttribute("msg","用户名密码错误");
             return "redirect:/index.jsp";
         }
+        User user1 = userService.selectUserByMail(user.getEmail());
         session.removeAttribute("loginVcode");
-        session.setAttribute("user", user);
+        session.setAttribute("user", user1);
         return "redirect:/index.jsp";
 //        session.removeAttribute("user");
     }
@@ -67,4 +69,18 @@ public class UserController {
         return "redirect:/index.jsp";
     }
 
+    @RequestMapping("forgetPwd")
+    @ResponseBody
+    public String forgetPwd(HttpServletRequest request, HttpSession session){
+        String mail = request.getParameter("mail");
+        String vcode = request.getParameter("vcode");
+        String mailVcode = (String) session.getAttribute("mailVcode");
+        if (mailVcode == null || !mailVcode.equals(vcode)){
+            return "{error : \"error\"}";
+        }
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContext.xml");
+        UserService userService = (UserService) applicationContext.getBean("userServiceImpl");
+        userService.forgetPassword(mail);
+        return "{success : \"success\"}";
+    }
 }
